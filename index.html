@@ -6,6 +6,30 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* 专属：科技感传送门按钮样式 */
+			.portal-btn {
+				display: inline-block;
+				margin: 2em 0;
+				padding: 0 3em;
+				height: 3.5em;
+				line-height: 3.5em;
+				background-color: #0b1c57 !important;
+				color: #fff !important;
+				font-weight: bold;
+				border-radius: 50px;
+				border: 1px solid #4fc3f7;
+				box-shadow: 0 0 15px rgba(79, 195, 247, 0.4);
+				transition: all 0.3s ease;
+				text-decoration: none;
+			}
+			.portal-btn:hover {
+				background-color: #4fc3f7 !important;
+				color: #0b1c57 !important;
+				box-shadow: 0 0 25px rgba(79, 195, 247, 0.8);
+				transform: translateY(-3px);
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -16,6 +40,10 @@
 						<h1>“健康中国”视域下医疗资源优化大屏</h1>
 						<p>基于 31 省面板数据 (2000-2024) 的 DEA 效能评估与空间聚类诊断<br />
 						核心构建：数据基建组 × 算法架构组 × 视觉交互组</p>
+						
+						<a href="dashboard.html" target="_blank" class="portal-btn">
+							⚡ 点击进入：全景医疗效能动态监测大屏 (Dark Mode)
+						</a>
 					</header>
 
 				<nav id="nav">
@@ -33,20 +61,20 @@
 								<header class="major">
 									<h2>第一章：宏观视域下的成就与危机</h2>
 								</header>
-								<p>过去二十年，中国经济腾飞驱动了国民预期寿命的跨越式增长 [cite: 85]。然而，随着老龄化加剧，核心慢性病致死占比快速攀升，凸显了对现有医疗资源进行跨省最优再分配的紧迫性 [cite: 49]。单纯依靠规模扩张的投入模式正面临挑战，资源的“效能转化”成为破局关键 [cite: 25]。</p>
+								<p>过去二十年，中国经济腾飞驱动了国民预期寿命的跨越式增长。然而，随着老龄化加剧，核心慢性病致死占比快速攀升，凸显了对现有医疗资源进行跨省最优再分配的紧迫性。单纯依靠规模扩张的投入模式正面临挑战，资源的“效能转化”成为破局关键。</p>
 								
 								<span class="image fit" style="margin-bottom: 0.5em;"><img src="images/picture1_achievement_foundation_final.png" alt="中国经济腾飞与寿命跨越" /></span>
-								<p style="font-size: 0.8em; color: gray; text-align: center; margin-bottom: 3em;">图1：中国崛起与健康成就——宏观视域下的“经济-健康”双跨越 (1960-2024) [cite: 45]</p>
+								<p style="font-size: 0.8em; color: gray; text-align: center; margin-bottom: 3em;">图1：中国崛起与健康成就——宏观视域下的“经济-健康”双跨越 (1960-2024)</p>
 								
 								<span class="image fit" style="margin-bottom: 0.5em;"><img src="images/picture2_final.png" alt="慢病占比趋势" /></span>
-								<p style="font-size: 0.8em; color: gray; text-align: center;">图2：慢病抬头的危机——医疗资源的“最大吞金兽” (2000-2023) [cite: 49]</p>
+								<p style="font-size: 0.8em; color: gray; text-align: center;">图2：慢病抬头的危机——医疗资源的“最大吞金兽” (2000-2023)</p>
 							</section>
 
 						<section id="first" class="main special">
 								<header class="major">
 									<h2>第二章：数据基建与预处理沙盒</h2>
 								</header>
-								<p style="text-align: left;">本研究构建了跨越全球宏观背景与国内省际面板的多维数据库 [cite: 85]。针对多源异构数据存在的统计口径不一、维度错位等问题，我们在特征工程阶段实施了正则清洗与逆透视重构 [cite: 111-113]。</p>
+								<p style="text-align: left;">本研究构建了跨越全球宏观背景与国内省际面板的多维数据库。针对多源异构数据存在的统计口径不一、维度错位等问题，我们在特征工程阶段实施了正则清洗与逆透视重构。</p>
 								
 								<div style="background: rgba(255,255,255,0.05); padding: 2em; border-radius: 8px; text-align: left; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 3em;">
 									<h3 style="color: #e28a2b;">🛠️ 空间维度：正则脱水 (Regex) 模拟器</h3>
@@ -67,17 +95,17 @@
 									<li>
 										<span class="icon solid major style1 fa-database"></span>
 										<h3>多源融合</h3>
-										<p>整合 WDI、GBD 及国家统计局等权威数据 [cite: 85, 102]。</p>
+										<p>整合 WDI、GBD 及国家统计局等权威数据。</p>
 									</li>
 									<li>
 										<span class="icon solid major style3 fa-filter"></span>
 										<h3>向后结转</h3>
-										<p>采用 ffill 算法平滑低频普查数据的“时间空洞” [cite: 117]。</p>
+										<p>采用 ffill 算法平滑低频普查数据的“时间空洞”。</p>
 									</li>
 									<li>
 										<span class="icon solid major style5 fa-check-circle"></span>
 										<h3>质量验证</h3>
-										<p>清洗后实现 2020-2022 年“黄金三年” 0 缺失值纯净样本 [cite: 98]。</p>
+										<p>清洗后实现 2020-2022 年“黄金三年” 0 缺失值纯净样本。</p>
 									</li>
 								</ul>
 							</section>
@@ -86,10 +114,10 @@
 								<header class="major">
 									<h2>第三章：全国医疗效能评估与结果分析</h2>
 								</header>
-								<p>本研究采用输入导向的 BCC DEA 模型，衡量各地区在既定健康结果条件下的纯技术效率 [cite: 5]。</p>
+								<p>本研究采用输入导向的 BCC DEA 模型，衡量各地区在既定健康结果条件下的纯技术效率。</p>
 
 								<h3 style="text-align: left; margin-top: 2em;">1. 医疗资源配置时空演变动态沙盘 (2005-2024)</h3>
-								<p style="text-align: left; font-size: 0.9em; color: rgba(255,255,255,0.6);">注：请点击下方播放按钮查看近二十年各省卫生人员与床位配置的扩张轨迹 [cite: 63, 71]。</p>
+								<p style="text-align: left; font-size: 0.9em; color: rgba(255,255,255,0.6);">注：请点击下方播放按钮查看近二十年各省卫生人员与床位配置的扩张轨迹。</p>
 								
 								<div style="background-color: white; border-radius: 8px; overflow: hidden; padding: 10px;">
 									<iframe src="picture3_dynamic_map.html" width="100%" height="600px" style="border: none;" scrolling="no"></iframe>
@@ -97,21 +125,21 @@
 
 								<h3 style="text-align: left; margin-top: 4em;">2. 2022年全国医疗资源配置效能热力图</h3>
 								<span class="image fit"><img src="images/medical_resource_heatmap.png" alt="全国效能热力地图" /></span>
-								<p style="font-size: 0.8em; color: rgba(255,255,255,0.6); text-align: center;">图5：全国各省医疗卫生资源配置效能热力地图 [cite: 78]</p>
+								<p style="font-size: 0.8em; color: rgba(255,255,255,0.6); text-align: center;">图5：全国各省医疗卫生资源配置效能热力地图</p>
 
 								<h3 style="text-align: left; margin-top: 4em;">3. 聚类群体多维特征雷达图</h3>
 								<span class="image fit"><img src="images/Chart5_cluster_radar_colored.png" alt="聚类雷达图" /></span>
-								<p style="font-size: 0.8em; color: rgba(255,255,255,0.6); text-align: center;">图6：各聚类群体医疗资源效能多维特征对比雷达图 [cite: 82]</p>
+								<p style="font-size: 0.8em; color: rgba(255,255,255,0.6); text-align: center;">图6：各聚类群体医疗资源效能多维特征对比雷达图</p>
 							</section>
 
 						<section id="cta" class="main special">
 								<header class="major">
 									<h2>结果总结与政策建议</h2>
-									<p>全国省级医疗资源配置效率整体处于中高水平（均值约 0.85），但省际差异持续存在 [cite: 11, 23]。</p>
+									<p>全国省级医疗资源配置效率整体处于中高水平（均值约 0.85），但省际差异持续存在。</p>
 								</header>
-								<p style="text-align: left;">1. **规模效率优化**：多数地区规模效率接近 1，效率短板更多来自配置结构而非规模失衡 [cite: 24]。<br />
-								   2. **精准靶向治理**：“中高投入低转化洼地区”应作为后续政策优化的重点对象 [cite: 25]。<br />
-								   3. **区域协同发展**：高效率领先区可作为经验参照组，带动周边地区实现健康产出转化能力提升 [cite: 26]。</p>
+								<p style="text-align: left;">1. **规模效率优化**：多数地区规模效率接近 1，效率短板更多来自配置结构而非规模失衡。<br />
+								   2. **精准靶向治理**：“中高投入低转化洼地区”应作为后续政策优化的重点对象。<br />
+								   3. **区域协同发展**：高效率领先区可作为经验参照组，带动周边地区实现健康产出转化能力提升。</p>
 								<footer class="major">
 									<ul class="actions special">
 										<li><a href="#" class="button primary">下载完整报告</a></li>
@@ -130,11 +158,11 @@
 							<h2>技术栈与致谢</h2>
 							<dl class="alt">
 								<dt>可视化</dt>
-								<dd>Pyecharts / Seaborn / Matplotlib [cite: 38]</dd>
+								<dd>Pyecharts / Seaborn / Matplotlib</dd>
 								<dt>建模</dt>
-								<dd>DEA-BCC (Input-oriented) / K-Means [cite: 4, 5]</dd>
+								<dd>DEA-BCC (Input-oriented) / K-Means</dd>
 								<dt>数据</dt>
-								<dd>Python Pandas / Regex / Outer Join [cite: 87, 96]</dd>
+								<dd>Python Pandas / Regex / Outer Join</dd>
 							</dl>
 						</section>
 						<p class="copyright">&copy; 健康中国数据挖掘团队. 模板支持: <a href="https://html5up.net">HTML5 UP</a>.</p>
