@@ -1,77 +1,119 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="style.css">
-<title>医疗效能监测大屏</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>“健康中国”全景医疗效能动态监测大屏</title>
+    <style>
+        /* 增加全局样式，确保图片和地图在框内居中并自适应 */
+        .chart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .chart img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body class="fill-parent"
 	dg-chart-auto-resize="true"
 	dg-chart-options="{title:{show:false},legend:{top:0},grid:{top:25}}"
 	dg-chart-theme="{color:'#F0F0F0',actualBackgroundColor:'#33179d'}">
+
 <div class="head">
     <div class="title"><label>“健康中国”全景医疗效能动态监测大屏</label></div>
 </div>
+
 <div class="content">
-	<div class="layout layout-left-top">
+    <div class="layout layout-left-top">
 		<div class="panel border-all">
-			<div class="title"><label>医疗资源投入趋势</label></div>
-			<div class="chart" dg-chart-widget=""></div>
+			<div class="title"><label>医疗资源投入趋势 (WDI 数据)</label></div>
+			<div class="chart">
+                <img src="images/picture1_achievement_foundation_final.png" alt="资源投入趋势">
+            </div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
-	<div class="layout layout-left-center">
+
+    <div class="layout layout-left-center">
 		<div class="panel border-all">
-			<div class="title"><label>慢病致死率监控</label></div>
-			<div class="chart" dg-chart-widget=""></div>
+			<div class="title"><label>核心慢性病致死率监控</label></div>
+			<div class="chart">
+                <img src="images/picture2_final.png" alt="慢病监控">
+            </div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
-	<div class="layout layout-left-bottom">
+
+    <div class="layout layout-left-bottom">
 		<div class="panel border-all">
-			<div class="title"><label>各省规模效率排名</label></div>
-			<div class="chart" dg-chart-widget=""></div>
+			<div class="title"><label>各省医疗资源演变全景 (Heatmap)</label></div>
+			<div class="chart">
+                <img src="images/medical_resource_heatmap.png" alt="资源演变热力图">
+            </div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
     
     <div class="layout layout-center-top">
 		<div class="panel border-all">
-			<div class="title"><label>全国医疗资源效能空间分布</label></div>
-			<div class="chart" style="padding: 10px;">
-                </div>
+			<div class="title"><label>全国医疗资源效能空间分布 (2005-2024)</label></div>
+			<div class="chart" style="padding: 0;">
+                <iframe src="Chart3_Dynamic_Resource_Map.html" scrolling="no"></iframe>
+            </div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
     
-	<div class="layout layout-center-bottom">
+    <div class="layout layout-center-bottom">
 		<div class="panel border-all">
-			<div class="title"><label>纯技术效率动态演变</label></div>
-			<div class="chart" dg-chart-widget=""></div>
+			<div class="title"><label>各省指标数据时空覆盖度</label></div>
+			<div class="chart">
+                <img src="images/Data_Availability_Heatmap.png" alt="数据覆盖度">
+            </div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
-	<div class="layout layout-right-top">
+
+    <div class="layout layout-right-top">
 		<div class="panel border-all">
-			<div class="title"><label>四大聚类群体多维特征</label></div>
-			<div class="chart" dg-chart-widget=""></div>
+			<div class="title"><label>四大聚类群体多维特征雷达</label></div>
+			<div class="chart">
+                <img src="images/Chart5_cluster_radar_colored.png" alt="聚类特征雷达图">
+            </div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
-	<div class="layout layout-right-center">
+
+    <div class="layout layout-right-center">
 		<div class="panel border-all">
-			<div class="title"><label>核心病床周转率</label></div>
-			<div class="chart" dg-chart-widget=""></div>
+			<div class="title"><label>核心投入-产出相关性矩阵</label></div>
+			<div class="chart">
+                <img src="images/Pearson_Correlation_Matrix.png" alt="相关性矩阵">
+            </div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
-	<div class="layout layout-right-bottom">
+
+    <div class="layout layout-right-bottom">
 		<div class="panel border-all">
-			<div class="title"><label>低效能区域预警</label></div>
-			<div class="chart" dg-chart-widget=""></div>
+			<div class="title"><label>各省效能特征聚类参考</label></div>
+			<div class="chart">
+                <img src="images/medical_resource_heatmap.png" alt="区域预警参考">
+            </div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
 </div>
+
 </body>
 </html>
