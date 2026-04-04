@@ -84,23 +84,20 @@
 								<p>过去二十年，中国经济腾飞驱动了国民预期寿命的跨越式增长。然而，随着老龄化加剧，核心慢性病致死占比快速攀升，凸显了对现有医疗资源进行跨省最优再分配的紧迫性。单纯依靠规模扩张的投入模式正面临挑战，资源的“效能转化”成为破局关键。</p>
 								
                                 <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; margin-top: 2em; margin-bottom: 2em;">
-                                    
                                     <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
                                         <span class="image fit" style="margin-bottom: 1.5em;">
                                             <img src="images/picture1_achievement_foundation_final.png" alt="中国经济腾飞与寿命跨越" style="border-radius: 8px;" />
                                         </span>
                                         <h4 style="margin-bottom: 0.5em; color: #fff;">图1：经济-健康双跨越</h4>
-                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">中国在短时间内走完了发达国家上百年的民生改善路径，经济腾飞支撑起了人均寿命的飞跃 (1960-2024)。</p>
+                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">中国走完发达国家百年的民生改善路径，经济腾飞支撑寿命飞跃 (1960-2024)。</p>
                                     </div>
-
                                     <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
                                         <span class="image fit" style="margin-bottom: 1.5em;">
                                             <img src="images/picture2_final.png" alt="慢病占比趋势" style="border-radius: 8px;" />
                                         </span>
                                         <h4 style="margin-bottom: 0.5em; color: #fff;">图2：慢病负担严峻攀升</h4>
-                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">核心慢性病致死率快速攀升，已成为医疗资源的“最大吞金兽”，倒逼资源必须走向高质效配置 (2000-2023)。</p>
+                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">核心慢性病致死率快速攀升，成为医疗“最大吞金兽”，倒逼资源高质效配置。</p>
                                     </div>
-
                                 </div>
 							</section>
 
@@ -155,7 +152,6 @@
                                 </div>
 
                                 <script>
-                                    // 选项卡切换逻辑
                                     function switchSandbox(target) {
                                         ['regex', 'merge', 'ffill', 'validate'].forEach(id => {
                                             document.getElementById('panel-' + id).style.display = 'none';
@@ -164,28 +160,18 @@
                                         document.getElementById('panel-' + target).style.display = 'block';
                                         document.getElementById('btn-' + target).classList.add('active-tab');
                                     }
-
-                                    // 算法1：正则
                                     function cleanRegion() {
                                         let input = document.getElementById('regionInput').value;
-                                        let output = input.replace(/(维吾尔|壮族|回族)?(自治区|省|市)$/, '');
-                                        document.getElementById('regionOutput').innerText = output;
+                                        document.getElementById('regionOutput').innerText = input.replace(/(维吾尔|壮族|回族)?(自治区|省|市)$/, '');
                                     }
-                                    // 算法2：融合
-                                    function simulateMerge() {
-                                        document.getElementById('mergeOutput').innerText = "✓ 成功对齐主键！生成宽表记录: [2020, 北京, GDP: x, 患病: y]";
-                                    }
-                                    // 算法3：结转
-                                    function simulateFfill() {
-                                        document.getElementById('ffillOutput').innerText = "填补后: [2018: 50] -> [2019: 50] -> [2020: 50]";
-                                    }
-                                    // 算法4：验证
+                                    function simulateMerge() { document.getElementById('mergeOutput').innerText = "✓ 生成宽表记录: [2020, 北京, GDP: x, 患病: y]"; }
+                                    function simulateFfill() { document.getElementById('ffillOutput').innerText = "填补后: [2018: 50] -> [2019: 50] -> [2020: 50]"; }
                                     function simulateValidate() {
                                         document.getElementById('val-bar-container').style.display = 'block';
-                                        document.getElementById('validateOutput').innerText = "正在全盘扫描缺失值与异常分布...";
+                                        document.getElementById('validateOutput').innerText = "正在全盘扫描缺失值...";
                                         document.getElementById('val-bar').style.width = '0%';
                                         setTimeout(() => { document.getElementById('val-bar').style.width = '100%'; }, 100);
-                                        setTimeout(() => { document.getElementById('validateOutput').innerHTML = "<span style='color:#4fc3f7;'>✓ 验证通过：核心样本期内缺失率 0.00%，符合建模标准。</span>"; }, 1200);
+                                        setTimeout(() => { document.getElementById('validateOutput').innerHTML = "<span style='color:#4fc3f7;'>✓ 核心样本期内缺失率 0.00%</span>"; }, 1200);
                                     }
                                 </script>
 
@@ -198,49 +184,73 @@
 									<li>
 										<span class="icon solid major style3 fa-filter"></span>
 										<h3>向后结转</h3>
-										<p>采用 ffill 算法平滑低频普查数据的“时间空洞”。</p>
+										<p>采用 ffill 算法平滑低频普查数据的时间空洞。</p>
 									</li>
 									<li>
 										<span class="icon solid major style5 fa-check-circle"></span>
 										<h3>质量验证</h3>
-										<p>清洗后实现 2020-2022 年“黄金三年” 0 缺失值纯净样本。</p>
+										<p>清洗后实现核心窗口期 0 缺失值纯净样本。</p>
 									</li>
 								</ul>
 							</section>
 
 						<section id="second" class="main special">
 								<header class="major">
-									<h2>第三章：全国医疗效能评估与结果分析</h2>
+									<h2>第三章：全国医疗效能评估与空间诊断</h2>
 								</header>
-								<p>本研究采用输入导向的 BCC DEA 模型，衡量各地区在既定健康结果条件下的纯技术效率。</p>
+								<p>基于 BCC-DEA 模型的输入导向分析，结合 K-Means 空间聚类，精准定位医疗资源配置的“效能洼地”。</p>
 
-								<h3 style="text-align: left; margin-top: 2em;">1. 医疗资源配置时空演变动态沙盘 (2005-2024)</h3>
-								<p style="text-align: left; font-size: 0.9em; color: rgba(255,255,255,0.6);">注：请点击下方播放按钮查看近二十年各省卫生人员与床位配置的扩张轨迹。</p>
-								
-								<div style="background-color: white; border-radius: 8px; overflow: hidden; padding: 10px;">
+								<h3 style="text-align: left; margin-top: 2em; color: #4fc3f7;">1. 时空演变全景沙盘 (2005-2024)</h3>
+								<div style="background: rgba(0,0,0,0.3); border-radius: 12px; overflow: hidden; padding: 15px; border: 1px solid rgba(79, 195, 247, 0.4); box-shadow: 0 0 25px rgba(79, 195, 247, 0.15); margin-bottom: 4em;">
 									<iframe src="Chart3_Dynamic_Resource_Map.html" width="100%" height="600px" style="border: none;" scrolling="no"></iframe>
 								</div>
 
-								<h3 style="text-align: left; margin-top: 4em;">2. 2022年全国医疗资源配置效能热力图</h3>
-								<span class="image fit"><img src="images/medical_resource_heatmap.png" alt="全国效能热力地图" /></span>
-								<p style="font-size: 0.8em; color: rgba(255,255,255,0.6); text-align: center;">图5：全国各省医疗卫生资源配置效能热力地图</p>
-
-								<h3 style="text-align: left; margin-top: 4em;">3. 聚类群体多维特征雷达图</h3>
-								<span class="image fit"><img src="images/Chart5_cluster_radar_colored.png" alt="聚类雷达图" /></span>
-								<p style="font-size: 0.8em; color: rgba(255,255,255,0.6); text-align: center;">图6：各聚类群体医疗资源效能多维特征对比雷达图</p>
+								<h3 style="text-align: left; margin-top: 2em; color: #4fc3f7;">2. 效能诊断与多维特征画像</h3>
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; margin-top: 1.5em;">
+                                    <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                        <span class="image fit" style="margin-bottom: 1.5em;">
+                                            <img src="images/medical_resource_heatmap.png" alt="全国效能热力地图" style="border-radius: 8px;" />
+                                        </span>
+                                        <h4 style="margin-bottom: 0.5em; color: #fff;">全国资源效能热力阵列</h4>
+                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">直观定位 31 省份配置效率的高地与洼地，揭示资源错配的空间集聚特征。</p>
+                                    </div>
+                                    <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                        <span class="image fit" style="margin-bottom: 1.5em;">
+                                            <img src="images/Chart5_cluster_radar_colored.png" alt="聚类雷达图" style="border-radius: 8px;" />
+                                        </span>
+                                        <h4 style="margin-bottom: 0.5em; color: #fff;">聚类群体多维特征雷达</h4>
+                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">解构四大聚类群体的投入产出结构，为靶向施策提供量化的特征依据。</p>
+                                    </div>
+                                </div>
 							</section>
 
 						<section id="cta" class="main special">
 								<header class="major">
-									<h2>结果总结与政策建议</h2>
-									<p>全国省级医疗资源配置效率整体处于中高水平（均值约 0.85），但省际差异持续存在。</p>
+									<h2>结论与靶向施策建议</h2>
+									<p>全国省级医疗资源配置效率整体处于中高水平，但空间非均衡性亟待打破。</p>
 								</header>
-								<p style="text-align: left;">1. **规模效率优化**：多数地区规模效率接近 1，效率短板更多来自配置结构而非规模失衡。<br />
-								   2. **精准靶向治理**：“中高投入低转化洼地区”应作为后续政策优化的重点对象。<br />
-								   3. **区域协同发展**：高效率领先区可作为经验参照组，带动周边地区实现健康产出转化能力提升。</p>
+								
+                                <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 1em; margin-bottom: 3em;">
+                                    <div style="flex: 1 1 30%; background: rgba(79,195,247,0.1); border: 1px solid rgba(79,195,247,0.3); border-radius: 10px; padding: 20px;">
+                                        <h1 style="color: #4fc3f7; margin-bottom: 0; font-size: 2.5em;">0.85</h1>
+                                        <h4 style="color: #fff; margin-top: 5px;">整体效能均值</h4>
+                                        <p style="font-size: 0.8em; color: rgba(255,255,255,0.7); margin: 0;">多数地区规模效率接近1，效率短板源自配置结构而非规模不足。</p>
+                                    </div>
+                                    <div style="flex: 1 1 30%; background: rgba(226,138,43,0.1); border: 1px solid rgba(226,138,43,0.3); border-radius: 10px; padding: 20px;">
+                                        <h1 style="color: #e28a2b; margin-bottom: 0; font-size: 2.5em;">靶向</h1>
+                                        <h4 style="color: #fff; margin-top: 5px;">低效洼地预警</h4>
+                                        <p style="font-size: 0.8em; color: rgba(255,255,255,0.7); margin: 0;">“高投入-低转化”地区应控制盲目扩张，加速转向内涵式发展。</p>
+                                    </div>
+                                    <div style="flex: 1 1 30%; background: rgba(57,255,20,0.1); border: 1px solid rgba(57,255,20,0.3); border-radius: 10px; padding: 20px;">
+                                        <h1 style="color: #39FF14; margin-bottom: 0; font-size: 2.5em;">协同</h1>
+                                        <h4 style="color: #fff; margin-top: 5px;">跨省资源溢出</h4>
+                                        <p style="font-size: 0.8em; color: rgba(255,255,255,0.7); margin: 0;">建立高能级省份对临近洼地的“医联体”跨区域技术帮扶机制。</p>
+                                    </div>
+                                </div>
+
 								<footer class="major">
 									<ul class="actions special">
-										<li><a href="#" class="button primary">下载完整报告</a></li>
+										<li><a href="#" class="button primary">下载完整学术报告</a></li>
 									</ul>
 								</footer>
 							</section>
