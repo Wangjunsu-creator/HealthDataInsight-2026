@@ -7,7 +7,12 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<style>
-			/* 专属：科技感传送门按钮样式 */
+			/* 专属：科技感传送门按钮样式 - 呼吸发光版 */
+			@keyframes breathingGlow {
+				0% { box-shadow: 0 0 10px rgba(79, 195, 247, 0.4); transform: scale(1); }
+				50% { box-shadow: 0 0 30px rgba(79, 195, 247, 0.9); transform: scale(1.03); }
+				100% { box-shadow: 0 0 10px rgba(79, 195, 247, 0.4); transform: scale(1); }
+			}
 			.portal-btn {
 				display: inline-block;
 				margin: 2em 0;
@@ -19,16 +24,31 @@
 				font-weight: bold;
 				border-radius: 50px;
 				border: 1px solid #4fc3f7;
-				box-shadow: 0 0 15px rgba(79, 195, 247, 0.4);
+				animation: breathingGlow 3s infinite ease-in-out;
 				transition: all 0.3s ease;
 				text-decoration: none;
 			}
 			.portal-btn:hover {
 				background-color: #4fc3f7 !important;
 				color: #0b1c57 !important;
-				box-shadow: 0 0 25px rgba(79, 195, 247, 0.8);
+				animation: none;
+				box-shadow: 0 0 25px rgba(79, 195, 247, 1);
 				transform: translateY(-3px);
 			}
+
+            /* 选项卡按钮激活状态 */
+            .tab-btn {
+                background: transparent; 
+                color: #ccc; 
+                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2);
+                margin-right: 10px;
+                transition: all 0.3s ease;
+            }
+            .tab-btn.active-tab {
+                background-color: #e28a2b !important;
+                color: #fff !important;
+                box-shadow: none !important;
+            }
 		</style>
 	</head>
 	<body class="is-preload">
@@ -63,11 +83,25 @@
 								</header>
 								<p>过去二十年，中国经济腾飞驱动了国民预期寿命的跨越式增长。然而，随着老龄化加剧，核心慢性病致死占比快速攀升，凸显了对现有医疗资源进行跨省最优再分配的紧迫性。单纯依靠规模扩张的投入模式正面临挑战，资源的“效能转化”成为破局关键。</p>
 								
-								<span class="image fit" style="margin-bottom: 0.5em;"><img src="images/picture1_achievement_foundation_final.png" alt="中国经济腾飞与寿命跨越" /></span>
-								<p style="font-size: 0.8em; color: gray; text-align: center; margin-bottom: 3em;">图1：中国崛起与健康成就——宏观视域下的“经济-健康”双跨越 (1960-2024)</p>
-								
-								<span class="image fit" style="margin-bottom: 0.5em;"><img src="images/picture2_final.png" alt="慢病占比趋势" /></span>
-								<p style="font-size: 0.8em; color: gray; text-align: center;">图2：慢病抬头的危机——医疗资源的“最大吞金兽” (2000-2023)</p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; margin-top: 2em; margin-bottom: 2em;">
+                                    
+                                    <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                        <span class="image fit" style="margin-bottom: 1.5em;">
+                                            <img src="images/picture1_achievement_foundation_final.png" alt="中国经济腾飞与寿命跨越" style="border-radius: 8px;" />
+                                        </span>
+                                        <h4 style="margin-bottom: 0.5em; color: #fff;">图1：经济-健康双跨越</h4>
+                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">中国在短时间内走完了发达国家上百年的民生改善路径，经济腾飞支撑起了人均寿命的飞跃 (1960-2024)。</p>
+                                    </div>
+
+                                    <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                        <span class="image fit" style="margin-bottom: 1.5em;">
+                                            <img src="images/picture2_final.png" alt="慢病占比趋势" style="border-radius: 8px;" />
+                                        </span>
+                                        <h4 style="margin-bottom: 0.5em; color: #fff;">图2：慢病负担严峻攀升</h4>
+                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">核心慢性病致死率快速攀升，已成为医疗资源的“最大吞金兽”，倒逼资源必须走向高质效配置 (2000-2023)。</p>
+                                    </div>
+
+                                </div>
 							</section>
 
 						<section id="first" class="main special">
@@ -76,20 +110,84 @@
 								</header>
 								<p style="text-align: left;">本研究构建了跨越全球宏观背景与国内省际面板的多维数据库。针对多源异构数据存在的统计口径不一、维度错位等问题，我们在特征工程阶段实施了正则清洗与逆透视重构。</p>
 								
-								<div style="background: rgba(255,255,255,0.05); padding: 2em; border-radius: 8px; text-align: left; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 3em;">
-									<h3 style="color: #e28a2b;">🛠️ 空间维度：正则脱水 (Regex) 模拟器</h3>
-									<p>为解决多源数据的主键对齐问题，我们自研了正则清洗算子。您可以输入原始地名（如：内蒙古自治区、北京市），点击按钮查看清洗结果：</p>
-									<input type="text" id="regionInput" value="新疆维吾尔自治区" style="width: 60%; display: inline-block; margin-right: 10px; color: #333;">
-									<button onclick="cleanRegion()" class="button primary">一键清洗</button>
-									<p style="margin-top: 15px;">标准主键输出：<strong id="regionOutput" style="color: #e28a2b; font-size: 1.2em;">（等待执行...）</strong></p>
-								</div>
-								<script>
-									function cleanRegion() {
-										let input = document.getElementById('regionInput').value;
-										let output = input.replace(/(维吾尔|壮族|回族)?(自治区|省|市)$/, '');
-										document.getElementById('regionOutput').innerText = output;
-									}
-								</script>
+                                <div style="background: rgba(255,255,255,0.05); padding: 2.5em; border-radius: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 3em;">
+                                    <h3 style="color: #e28a2b; margin-bottom: 1.5em;">🛠️ 核心预处理算法交互沙盒</h3>
+                                    
+                                    <div style="display: flex; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; flex-wrap: wrap;">
+                                        <button onclick="switchSandbox('regex')" class="button small tab-btn active-tab" id="btn-regex">1. 正则清洗</button>
+                                        <button onclick="switchSandbox('merge')" class="button small tab-btn" id="btn-merge">2. 异构融合</button>
+                                        <button onclick="switchSandbox('ffill')" class="button small tab-btn" id="btn-ffill">3. 向后结转</button>
+                                        <button onclick="switchSandbox('validate')" class="button small tab-btn" id="btn-validate">4. 质量验证</button>
+                                    </div>
+
+                                    <div id="panel-regex" class="sandbox-panel" style="display: block;">
+                                        <p>为解决多源数据主键对齐问题，去除行政区划冗余后缀：</p>
+                                        <input type="text" id="regionInput" value="新疆维吾尔自治区" style="width: 50%; display: inline-block; margin-right: 10px; background: rgba(0,0,0,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;">
+                                        <button onclick="cleanRegion()" class="button primary small">执行脱水</button>
+                                        <p style="margin-top: 15px;">清洗结果：<strong id="regionOutput" style="color: #e28a2b; font-size: 1.2em;">-</strong></p>
+                                    </div>
+
+                                    <div id="panel-merge" class="sandbox-panel" style="display: none;">
+                                        <p>模拟 WDI 经济数据与 GBD 疾病数据基于 <code>[年份, 地区]</code> 的 Outer Join：</p>
+                                        <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+                                            <div style="flex: 1; background: rgba(0,0,0,0.2); padding: 15px; border: 1px dashed rgba(255,255,255,0.2); border-radius: 6px;">表A: (2020, 北京, GDP: x)</div>
+                                            <div style="flex: 1; background: rgba(0,0,0,0.2); padding: 15px; border: 1px dashed rgba(255,255,255,0.2); border-radius: 6px;">表B: (2020, 北京, 患病: y)</div>
+                                        </div>
+                                        <button onclick="simulateMerge()" class="button primary small">执行 PD.MERGE</button>
+                                        <p style="margin-top: 15px;">融合结果：<strong id="mergeOutput" style="color: #4fc3f7; font-size: 1.1em;">-</strong></p>
+                                    </div>
+
+                                    <div id="panel-ffill" class="sandbox-panel" style="display: none;">
+                                        <p>低频普查数据的时间空洞填补 (Forward Fill 算法)：</p>
+                                        <p style="font-family: monospace; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 6px; color: #ccc;">序列: [2018: 50] -> [2019: NaN] -> [2020: NaN]</p>
+                                        <button onclick="simulateFfill()" class="button primary small">执行 FFILL</button>
+                                        <p style="margin-top: 15px;">结转结果：<strong id="ffillOutput" style="color: #4fc3f7; font-size: 1.1em; font-family: monospace;">-</strong></p>
+                                    </div>
+
+                                    <div id="panel-validate" class="sandbox-panel" style="display: none;">
+                                        <p>扫描最终面板数据的完备性与异常值：</p>
+                                        <button onclick="simulateValidate()" class="button primary small" id="btn-run-val">一键体检</button>
+                                        <div style="margin-top: 20px; width: 100%; background: rgba(0,0,0,0.3); border-radius: 4px; height: 12px; overflow: hidden; display: none;" id="val-bar-container">
+                                            <div id="val-bar" style="height: 100%; width: 0%; background: #4fc3f7; transition: width 1s ease;"></div>
+                                        </div>
+                                        <p style="margin-top: 15px;"><strong id="validateOutput" style="color: #e28a2b; font-size: 1.1em;">-</strong></p>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    // 选项卡切换逻辑
+                                    function switchSandbox(target) {
+                                        ['regex', 'merge', 'ffill', 'validate'].forEach(id => {
+                                            document.getElementById('panel-' + id).style.display = 'none';
+                                            document.getElementById('btn-' + id).classList.remove('active-tab');
+                                        });
+                                        document.getElementById('panel-' + target).style.display = 'block';
+                                        document.getElementById('btn-' + target).classList.add('active-tab');
+                                    }
+
+                                    // 算法1：正则
+                                    function cleanRegion() {
+                                        let input = document.getElementById('regionInput').value;
+                                        let output = input.replace(/(维吾尔|壮族|回族)?(自治区|省|市)$/, '');
+                                        document.getElementById('regionOutput').innerText = output;
+                                    }
+                                    // 算法2：融合
+                                    function simulateMerge() {
+                                        document.getElementById('mergeOutput').innerText = "✓ 成功对齐主键！生成宽表记录: [2020, 北京, GDP: x, 患病: y]";
+                                    }
+                                    // 算法3：结转
+                                    function simulateFfill() {
+                                        document.getElementById('ffillOutput').innerText = "填补后: [2018: 50] -> [2019: 50] -> [2020: 50]";
+                                    }
+                                    // 算法4：验证
+                                    function simulateValidate() {
+                                        document.getElementById('val-bar-container').style.display = 'block';
+                                        document.getElementById('validateOutput').innerText = "正在全盘扫描缺失值与异常分布...";
+                                        document.getElementById('val-bar').style.width = '0%';
+                                        setTimeout(() => { document.getElementById('val-bar').style.width = '100%'; }, 100);
+                                        setTimeout(() => { document.getElementById('validateOutput').innerHTML = "<span style='color:#4fc3f7;'>✓ 验证通过：核心样本期内缺失率 0.00%，符合建模标准。</span>"; }, 1200);
+                                    }
+                                </script>
 
 								<ul class="features">
 									<li>
@@ -120,7 +218,7 @@
 								<p style="text-align: left; font-size: 0.9em; color: rgba(255,255,255,0.6);">注：请点击下方播放按钮查看近二十年各省卫生人员与床位配置的扩张轨迹。</p>
 								
 								<div style="background-color: white; border-radius: 8px; overflow: hidden; padding: 10px;">
-									<iframe src="picture3_dynamic_map.html" width="100%" height="600px" style="border: none;" scrolling="no"></iframe>
+									<iframe src="Chart3_Dynamic_Resource_Map.html" width="100%" height="600px" style="border: none;" scrolling="no"></iframe>
 								</div>
 
 								<h3 style="text-align: left; margin-top: 4em;">2. 2022年全国医疗资源配置效能热力图</h3>
