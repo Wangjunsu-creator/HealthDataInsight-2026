@@ -1,290 +1,125 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>“健康中国”医疗资源时空演变与效能大屏</title>
+		<title>“健康中国”医疗资源时空演变与效能大屏 - 核心启动舱</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<style>
-			/* 专属：科技感传送门按钮样式 - 呼吸发光版 */
-			@keyframes breathingGlow {
-				0% { box-shadow: 0 0 10px rgba(79, 195, 247, 0.4); transform: scale(1); }
-				50% { box-shadow: 0 0 30px rgba(79, 195, 247, 0.9); transform: scale(1.03); }
-				100% { box-shadow: 0 0 10px rgba(79, 195, 247, 0.4); transform: scale(1); }
+			/* 专属：电影级片头淡入动画 */
+			body {
+				animation: fadeIn 1.5s ease-in;
 			}
-			.portal-btn {
+			@keyframes fadeIn {
+				from { opacity: 0; transform: translateY(20px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+
+			/* 专属：超巨型科技感传送门按钮 */
+			@keyframes breathingGlow {
+				0% { box-shadow: 0 0 15px rgba(79, 195, 247, 0.4); transform: scale(1); }
+				50% { box-shadow: 0 0 40px rgba(79, 195, 247, 0.8); transform: scale(1.02); }
+				100% { box-shadow: 0 0 15px rgba(79, 195, 247, 0.4); transform: scale(1); }
+			}
+			.giant-portal-btn {
 				display: inline-block;
-				margin: 2em 0;
+				margin: 3em 0 1em 0;
 				padding: 0 3em;
-				height: 3.5em;
-				line-height: 3.5em;
+				height: 4em;
+				line-height: 4em;
+				font-size: 1.2em;
 				background-color: #0b1c57 !important;
 				color: #fff !important;
 				font-weight: bold;
+				letter-spacing: 2px;
 				border-radius: 50px;
-				border: 1px solid #4fc3f7;
+				border: 2px solid #4fc3f7;
 				animation: breathingGlow 3s infinite ease-in-out;
 				transition: all 0.3s ease;
 				text-decoration: none;
 			}
-			.portal-btn:hover {
+			.giant-portal-btn:hover {
 				background-color: #4fc3f7 !important;
 				color: #0b1c57 !important;
 				animation: none;
-				box-shadow: 0 0 25px rgba(79, 195, 247, 1);
+				box-shadow: 0 0 30px rgba(79, 195, 247, 1);
 				transform: translateY(-3px);
 			}
 
-            /* 选项卡按钮激活状态 */
-            .tab-btn {
-                background: transparent; 
-                color: #ccc; 
-                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2);
-                margin-right: 10px;
-                transition: all 0.3s ease;
-            }
-            .tab-btn.active-tab {
-                background-color: #e28a2b !important;
-                color: #fff !important;
-                box-shadow: none !important;
-            }
+			/* 摘要文字排版优化 */
+			.abstract-text {
+				text-align: left;
+				font-size: 1.15em;
+				line-height: 2;
+				max-width: 900px;
+				margin: 0 auto;
+				color: #555;
+			}
+			.abstract-text strong {
+				color: #e28a2b;
+			}
 		</style>
 	</head>
 	<body class="is-preload">
 
 		<div id="wrapper">
 
-				<header id="header" class="alt">
+				<header id="header" class="alt" style="padding-bottom: 2em;">
 						<span class="logo"><img src="images/logo.svg" alt="" /></span>
-						<h1>“健康中国”视域下医疗资源优化大屏</h1>
-						<p>基于 31 省面板数据 (2000-2024) 的 DEA 效能评估与空间聚类诊断<br />
-						核心构建：数据基建组 × 算法架构组 × 视觉交互组</p>
-						
-						<a href="dashboard.html" target="_blank" class="portal-btn">
-							⚡ 点击进入：全景医疗效能动态监测大屏 (Dark Mode)
-						</a>
-					</header>
-
-				<nav id="nav">
-						<ul>
-							<li><a href="#intro" class="active">宏观背景</a></li>
-							<li><a href="#first">数据基建</a></li>
-							<li><a href="#second">效能诊断</a></li>
-							<li><a href="#cta">总结展望</a></li>
-						</ul>
-					</nav>
+						<h1>“健康中国”视域下医疗资源优化评估系统</h1>
+						<p style="font-size: 1.2em; letter-spacing: 1px;">
+						基于 31 省面板数据 (2000-2024) 的 DEA 效能评估与空间聚类诊断<br />
+						<span style="color: #4fc3f7; font-weight: bold;">核心构建：数据基建组 × 算法架构组 × 视觉交互组</span>
+						</p>
+				</header>
 
 				<div id="main">
-
-						<section id="intro" class="main">
+						<section id="intro" class="main special">
 								<header class="major">
-									<h2>第一章：宏观视域下的成就与危机</h2>
+									<h2>【 核心使命：重塑医疗资源效能边界 】</h2>
 								</header>
-								<p>过去二十年，中国经济腾飞驱动了国民预期寿命的跨越式增长。然而，随着老龄化加剧，核心慢性病致死占比快速攀升，凸显了对现有医疗资源进行跨省最优再分配的紧迫性。单纯依靠规模扩张的投入模式正面临挑战，资源的“效能转化”成为破局关键。</p>
 								
-                                <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; margin-top: 2em; margin-bottom: 2em;">
-                                    <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
-                                        <span class="image fit" style="margin-bottom: 1.5em;">
-                                            <img src="images/picture1_achievement_foundation_final.png" alt="中国经济腾飞与寿命跨越" style="border-radius: 8px;" />
-                                        </span>
-                                        <h4 style="margin-bottom: 0.5em; color: #fff;">图1：经济-健康双跨越</h4>
-                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">中国走完发达国家百年的民生改善路径，经济腾飞支撑寿命飞跃 (1960-2024)。</p>
-                                    </div>
-                                    <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
-                                        <span class="image fit" style="margin-bottom: 1.5em;">
-                                            <img src="images/picture2_final.png" alt="慢病占比趋势" style="border-radius: 8px;" />
-                                        </span>
-                                        <h4 style="margin-bottom: 0.5em; color: #fff;">图2：慢病负担严峻攀升</h4>
-                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">核心慢性病致死率快速攀升，成为医疗“最大吞金兽”，倒逼资源高质效配置。</p>
-                                    </div>
-                                </div>
-							</section>
-
-						<section id="first" class="main special">
-								<header class="major">
-									<h2>第二章：数据基建与预处理沙盒</h2>
-								</header>
-								<p style="text-align: left;">本研究构建了跨越全球宏观背景与国内省际面板的多维数据库。针对多源异构数据存在的统计口径不一、维度错位等问题，我们在特征工程阶段实施了正则清洗与逆透视重构。</p>
-								
-                                <div style="background: rgba(255,255,255,0.05); padding: 2.5em; border-radius: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 3em;">
-                                    <h3 style="color: #e28a2b; margin-bottom: 1.5em;">🛠️ 核心预处理算法交互沙盒</h3>
-                                    
-                                    <div style="display: flex; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; flex-wrap: wrap;">
-                                        <button onclick="switchSandbox('regex')" class="button small tab-btn active-tab" id="btn-regex">1. 正则清洗</button>
-                                        <button onclick="switchSandbox('merge')" class="button small tab-btn" id="btn-merge">2. 异构融合</button>
-                                        <button onclick="switchSandbox('ffill')" class="button small tab-btn" id="btn-ffill">3. 向后结转</button>
-                                        <button onclick="switchSandbox('validate')" class="button small tab-btn" id="btn-validate">4. 质量验证</button>
-                                    </div>
-
-                                    <div id="panel-regex" class="sandbox-panel" style="display: block;">
-                                        <p>为解决多源数据主键对齐问题，去除行政区划冗余后缀：</p>
-                                        <input type="text" id="regionInput" value="新疆维吾尔自治区" style="width: 50%; display: inline-block; margin-right: 10px; background: rgba(0,0,0,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;">
-                                        <button onclick="cleanRegion()" class="button primary small">执行脱水</button>
-                                        <p style="margin-top: 15px;">清洗结果：<strong id="regionOutput" style="color: #e28a2b; font-size: 1.2em;">-</strong></p>
-                                    </div>
-
-                                    <div id="panel-merge" class="sandbox-panel" style="display: none;">
-                                        <p>模拟 WDI 经济数据与 GBD 疾病数据基于 <code>[年份, 地区]</code> 的 Outer Join：</p>
-                                        <div style="display: flex; gap: 20px; margin-bottom: 15px;">
-                                            <div style="flex: 1; background: rgba(0,0,0,0.2); padding: 15px; border: 1px dashed rgba(255,255,255,0.2); border-radius: 6px;">表A: (2020, 北京, GDP: x)</div>
-                                            <div style="flex: 1; background: rgba(0,0,0,0.2); padding: 15px; border: 1px dashed rgba(255,255,255,0.2); border-radius: 6px;">表B: (2020, 北京, 患病: y)</div>
-                                        </div>
-                                        <button onclick="simulateMerge()" class="button primary small">执行 PD.MERGE</button>
-                                        <p style="margin-top: 15px;">融合结果：<strong id="mergeOutput" style="color: #4fc3f7; font-size: 1.1em;">-</strong></p>
-                                    </div>
-
-                                    <div id="panel-ffill" class="sandbox-panel" style="display: none;">
-                                        <p>低频普查数据的时间空洞填补 (Forward Fill 算法)：</p>
-                                        <p style="font-family: monospace; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 6px; color: #ccc;">序列: [2018: 50] -> [2019: NaN] -> [2020: NaN]</p>
-                                        <button onclick="simulateFfill()" class="button primary small">执行 FFILL</button>
-                                        <p style="margin-top: 15px;">结转结果：<strong id="ffillOutput" style="color: #4fc3f7; font-size: 1.1em; font-family: monospace;">-</strong></p>
-                                    </div>
-
-                                    <div id="panel-validate" class="sandbox-panel" style="display: none;">
-                                        <p>扫描最终面板数据的完备性与异常值：</p>
-                                        <button onclick="simulateValidate()" class="button primary small" id="btn-run-val">一键体检</button>
-                                        <div style="margin-top: 20px; width: 100%; background: rgba(0,0,0,0.3); border-radius: 4px; height: 12px; overflow: hidden; display: none;" id="val-bar-container">
-                                            <div id="val-bar" style="height: 100%; width: 0%; background: #4fc3f7; transition: width 1s ease;"></div>
-                                        </div>
-                                        <p style="margin-top: 15px;"><strong id="validateOutput" style="color: #e28a2b; font-size: 1.1em;">-</strong></p>
-                                    </div>
-                                </div>
-
-                                <script>
-                                    function switchSandbox(target) {
-                                        ['regex', 'merge', 'ffill', 'validate'].forEach(id => {
-                                            document.getElementById('panel-' + id).style.display = 'none';
-                                            document.getElementById('btn-' + id).classList.remove('active-tab');
-                                        });
-                                        document.getElementById('panel-' + target).style.display = 'block';
-                                        document.getElementById('btn-' + target).classList.add('active-tab');
-                                    }
-                                    function cleanRegion() {
-                                        let input = document.getElementById('regionInput').value;
-                                        document.getElementById('regionOutput').innerText = input.replace(/(维吾尔|壮族|回族)?(自治区|省|市)$/, '');
-                                    }
-                                    function simulateMerge() { document.getElementById('mergeOutput').innerText = "✓ 生成宽表记录: [2020, 北京, GDP: x, 患病: y]"; }
-                                    function simulateFfill() { document.getElementById('ffillOutput').innerText = "填补后: [2018: 50] -> [2019: 50] -> [2020: 50]"; }
-                                    function simulateValidate() {
-                                        document.getElementById('val-bar-container').style.display = 'block';
-                                        document.getElementById('validateOutput').innerText = "正在全盘扫描缺失值...";
-                                        document.getElementById('val-bar').style.width = '0%';
-                                        setTimeout(() => { document.getElementById('val-bar').style.width = '100%'; }, 100);
-                                        setTimeout(() => { document.getElementById('validateOutput').innerHTML = "<span style='color:#4fc3f7;'>✓ 核心样本期内缺失率 0.00%</span>"; }, 1200);
-                                    }
-                                </script>
-
-								<ul class="features">
-									<li>
-										<span class="icon solid major style1 fa-database"></span>
-										<h3>多源融合</h3>
-										<p>整合 WDI、GBD 及国家统计局等权威数据。</p>
-									</li>
-									<li>
-										<span class="icon solid major style3 fa-filter"></span>
-										<h3>向后结转</h3>
-										<p>采用 ffill 算法平滑低频普查数据的时间空洞。</p>
-									</li>
-									<li>
-										<span class="icon solid major style5 fa-check-circle"></span>
-										<h3>质量验证</h3>
-										<p>清洗后实现核心窗口期 0 缺失值纯净样本。</p>
-									</li>
-								</ul>
-							</section>
-
-						<section id="second" class="main special">
-								<header class="major">
-									<h2>第三章：全国医疗效能评估与空间诊断</h2>
-								</header>
-								<p>基于 BCC-DEA 模型的输入导向分析，结合 K-Means 空间聚类，精准定位医疗资源配置的“效能洼地”。</p>
-
-								<h3 style="text-align: left; margin-top: 2em; color: #4fc3f7;">1. 时空演变全景沙盘 (2005-2024)</h3>
-								<div style="background: rgba(0,0,0,0.3); border-radius: 12px; overflow: hidden; padding: 15px; border: 1px solid rgba(79, 195, 247, 0.4); box-shadow: 0 0 25px rgba(79, 195, 247, 0.15); margin-bottom: 4em;">
-									<iframe src="Chart3_Dynamic_Resource_Map.html" width="100%" height="600px" style="border: none;" scrolling="no"></iframe>
+								<div class="abstract-text">
+									<p>过去二十年，中国经济腾飞驱动了国民预期寿命的跨越式增长。然而，随着老龄化加剧，核心慢性病致死占比快速攀升，单纯依靠规模扩张的投入模式正面临严峻挑战，资源的<strong>“高质效转化”</strong>已成为破局关键。</p>
+									<p>本项目历时数月，深度融合 WDI、GBD 及国家统计局等多源异构数据，依托 <strong>BCC-DEA 效能测算模型</strong> 与 <strong>K-Means 空间聚类算法</strong>，构建了覆盖全国 31 省的动态监测评价体系。旨在精准定位资源错配洼地，解构群体投入产出特征，为国家宏观政策的靶向施策提供硬核数据支撑。</p>
 								</div>
-
-								<h3 style="text-align: left; margin-top: 2em; color: #4fc3f7;">2. 效能诊断与多维特征画像</h3>
-                                <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; margin-top: 1.5em;">
-                                    <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
-                                        <span class="image fit" style="margin-bottom: 1.5em;">
-                                            <img src="images/medical_resource_heatmap.png" alt="全国效能热力地图" style="border-radius: 8px;" />
-                                        </span>
-                                        <h4 style="margin-bottom: 0.5em; color: #fff;">全国资源效能热力阵列</h4>
-                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">直观定位 31 省份配置效率的高地与洼地，揭示资源错配的空间集聚特征。</p>
-                                    </div>
-                                    <div style="flex: 1 1 45%; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
-                                        <span class="image fit" style="margin-bottom: 1.5em;">
-                                            <img src="images/Chart5_cluster_radar_colored.png" alt="聚类雷达图" style="border-radius: 8px;" />
-                                        </span>
-                                        <h4 style="margin-bottom: 0.5em; color: #fff;">聚类群体多维特征雷达</h4>
-                                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.6;">解构四大聚类群体的投入产出结构，为靶向施策提供量化的特征依据。</p>
-                                    </div>
-                                </div>
-							</section>
-
-						<section id="cta" class="main special">
-								<header class="major">
-									<h2>结论与靶向施策建议</h2>
-									<p>全国省级医疗资源配置效率整体处于中高水平，但空间非均衡性亟待打破。</p>
-								</header>
 								
-                                <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 1em; margin-bottom: 3em;">
-                                    <div style="flex: 1 1 30%; background: rgba(79,195,247,0.1); border: 1px solid rgba(79,195,247,0.3); border-radius: 10px; padding: 20px;">
-                                        <h1 style="color: #4fc3f7; margin-bottom: 0; font-size: 2.5em;">0.85</h1>
-                                        <h4 style="color: #fff; margin-top: 5px;">整体效能均值</h4>
-                                        <p style="font-size: 0.8em; color: rgba(255,255,255,0.7); margin: 0;">多数地区规模效率接近1，效率短板源自配置结构而非规模不足。</p>
-                                    </div>
-                                    <div style="flex: 1 1 30%; background: rgba(226,138,43,0.1); border: 1px solid rgba(226,138,43,0.3); border-radius: 10px; padding: 20px;">
-                                        <h1 style="color: #e28a2b; margin-bottom: 0; font-size: 2.5em;">靶向</h1>
-                                        <h4 style="color: #fff; margin-top: 5px;">低效洼地预警</h4>
-                                        <p style="font-size: 0.8em; color: rgba(255,255,255,0.7); margin: 0;">“高投入-低转化”地区应控制盲目扩张，加速转向内涵式发展。</p>
-                                    </div>
-                                    <div style="flex: 1 1 30%; background: rgba(57,255,20,0.1); border: 1px solid rgba(57,255,20,0.3); border-radius: 10px; padding: 20px;">
-                                        <h1 style="color: #39FF14; margin-bottom: 0; font-size: 2.5em;">协同</h1>
-                                        <h4 style="color: #fff; margin-top: 5px;">跨省资源溢出</h4>
-                                        <p style="font-size: 0.8em; color: rgba(255,255,255,0.7); margin: 0;">建立高能级省份对临近洼地的“医联体”跨区域技术帮扶机制。</p>
-                                    </div>
-                                </div>
-
-								<footer class="major">
-									<ul class="actions special">
-										<li><a href="#" class="button primary">下载完整学术报告</a></li>
-									</ul>
-								</footer>
-							</section>
-
-					</div>
+								<a href="dashboard.html" class="giant-portal-btn">
+									🚀 启动全景数据中控台 (Enter Core System)
+								</a>
+								<p style="font-size: 0.8em; color: gray; margin-top: 10px;">提示：进入后请按 F11 开启全屏沉浸模式体验</p>
+						</section>
+				</div>
 
 				<footer id="footer">
 						<section>
 							<h2>关于项目</h2>
-							<p>本项目致力于通过数据挖掘手段揭示中国医疗资源的演进规律，为“健康中国 2030”战略提供科学的决策支持。</p>
+							<p>本项目致力于通过大数据挖掘与前端可视化技术，揭示中国医疗资源的演进规律与效能痛点，为“健康中国 2030”战略提供极具科技感的决策支持方案。</p>
 						</section>
 						<section>
-							<h2>技术栈与致谢</h2>
+							<h2>核心技术栈</h2>
 							<dl class="alt">
-								<dt>可视化</dt>
-								<dd>Pyecharts / Seaborn / Matplotlib</dd>
-								<dt>建模</dt>
-								<dd>DEA-BCC (Input-oriented) / K-Means</dd>
-								<dt>数据</dt>
-								<dd>Python Pandas / Regex / Outer Join</dd>
+								<dt>可视架构</dt>
+								<dd>Pyecharts / Seaborn / HTML5 / CSS3</dd>
+								<dt>算法模型</dt>
+								<dd>DEA-BCC (Input-oriented) / K-Means Clustering</dd>
+								<dt>数据基建</dt>
+								<dd>Python Pandas / Regex / 向后结转平滑</dd>
 							</dl>
 						</section>
-						<p class="copyright">&copy; 健康中国数据挖掘团队. 模板支持: <a href="https://html5up.net">HTML5 UP</a>.</p>
-					</footer>
+						<p class="copyright">&copy; 健康中国数据挖掘团队. 架构设计专属版.</p>
+				</footer>
 
-			</div>
+		</div>
 
 		<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
 	</body>
 </html>
