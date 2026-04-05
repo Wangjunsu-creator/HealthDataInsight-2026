@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>深度解析舱：宏观经济与健康跨越</title>
+    <style>
+        .chart { display: flex; justify-content: center; align-items: center; overflow: hidden; height: 100%; padding: 10px; }
+        .chart img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        
+        /* 提词板文字样式 */
+        .bullet-points { color: #E0E0E0; font-size: 1.1em; line-height: 2; padding: 10px 20px; text-align: left;}
+        .bullet-points span { color: #4fc3f7; font-weight: bold; font-size: 1.2em; display: inline-block; margin-bottom: 5px;}
+        
+        /* 科技感暗黑数据表 */
+        .tech-table { width: 100%; border-collapse: collapse; color: #E0E0E0; font-size: 0.9em; text-align: center; }
+        .tech-table th { background: rgba(79, 195, 247, 0.2); border-bottom: 1px solid #4fc3f7; padding: 10px; color: #fff; }
+        .tech-table td { padding: 8px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
+        
+        /* 返回大屏的顶部按钮 */
+        .back-btn { position: absolute; left: 20px; top: 15px; color: #fff; text-decoration: none; border: 1px solid #4fc3f7; padding: 5px 15px; border-radius: 20px; background: rgba(79, 195, 247, 0.2); z-index: 100; transition: all 0.3s;}
+        .back-btn:hover { background: #4fc3f7; color: #000; }
+    </style>
+</head>
+<body class="fill-parent" dg-chart-auto-resize="true" dg-chart-theme="{color:'#F0F0F0',actualBackgroundColor:'#33179d'}">
+
+<a href="dashboard.html" class="back-btn">⬅ 返回总控舱</a>
+
+<div class="head">
+    <div class="title"><label>专题一：宏观视域下的“经济-健康”双跨越解析</label></div>
+</div>
+
+<div class="content">
+    
+    <div class="layout layout-left-top" style="height: 100%;">
+        <div class="panel border-all">
+            <div class="title"><label>核心战略洞察</label></div>
+            <div class="chart" style="align-items: flex-start; padding-top: 30px;">
+                <div class="bullet-points">
+                    <p><span>01 / 经济底座筑牢</span><br>我国 GDP 在 1990 年后呈现指数级增长，迅速拉开与对照组印度的差距。</p>
+                    <p><span>02 / 健康产出飞跃</span><br>国民人均预期寿命从建国初期的 43 岁，跃升至当前的 78 岁左右。</p>
+                    <p><span>03 / 效能前置效应</span><br>曲线表明，人均寿命的稳步爬升早于 GDP 的爆发，这得益于我国早期基础医疗和公共卫生的强力普及。</p>
+                </div>
+            </div>
+            <div class="border-foot"></div>
+        </div>
+    </div>
+
+    <div class="layout layout-center-top" style="height: 100%;">
+        <div class="panel border-all">
+            <div class="title"><label>图1：中国经济腾飞与寿命跨越趋势对比 (1960-2024)</label></div>
+            <div class="chart" style="padding: 0;">
+                <img src="images/picture1_achievement_foundation_final.png" alt="经济与寿命跨越">
+            </div>
+            <div class="border-foot"></div>
+        </div>
+    </div>
+
+    <div class="layout layout-right-top" style="height: 100%;">
+        <div class="panel border-all">
+            <div class="title"><label>宏观面板数据抽样 (WDI)</label></div>
+            <div class="chart" style="align-items: flex-start; padding-top: 20px;">
+                <table class="tech-table">
+                    <tr><th>年份</th><th>国家</th><th>GDP(万亿)</th><th>寿命(岁)</th></tr>
+                    <tr><td>1960</td><td>CHN</td><td>0.06</td><td>43.7</td></tr>
+                    <tr><td>1980</td><td>CHN</td><td>0.19</td><td>66.5</td></tr>
+                    <tr><td>2000</td><td>CHN</td><td>1.21</td><td>71.4</td></tr>
+                    <tr><td>2010</td><td>CHN</td><td>6.09</td><td>74.4</td></tr>
+                    <tr><td>2020</td><td>CHN</td><td>14.69</td><td>78.1</td></tr>
+                    <tr><td>2023</td><td>CHN</td><td>17.79</td><td>78.6</td></tr>
+                    <tr><td colspan="4" style="color:#4fc3f7; border:none; padding-top: 25px;">[ 状态：已清洗 1,890 条有效记录 ]</td></tr>
+                </table>
+            </div>
+            <div class="border-foot"></div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
