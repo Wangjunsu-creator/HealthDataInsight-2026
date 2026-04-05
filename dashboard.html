@@ -7,7 +7,7 @@
     <style>
         /* 隐藏网页默认滚动条，大屏录制更纯粹 */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
-        body { -ms-overflow-style: none; scrollbar-width: none; }
+        body { -ms-overflow-style: none;  /* IE and Edge */ scrollbar-width: none;  /* Firefox */ }
 
         /* 强制锁定所有面板，绝对禁止溢出 */
         .panel {
@@ -19,33 +19,33 @@
             box-sizing: border-box;
         }
         
-        /* 🌟 终极修复：标题绝对居中，为按钮提供定位基准 */
+        /* 标题绝对居中，为按钮提供定位基准 */
         .title {
-            position: relative; /* 核心：让按钮知道以谁为基准靠右 */
-            text-align: center; /* 核心：让标题文字永远居中 */
+            position: relative; 
+            text-align: center; 
             flex-shrink: 0; 
             z-index: 10;
             width: 100%;
             box-sizing: border-box;
-            padding: 8px 0; /* 留出呼吸空间 */
+            padding: 6px 0; /* 稍微减小标题的上下边距，给下方图表留出空间 */
         }
         .title label {
             display: inline-block;
             white-space: nowrap; 
             overflow: hidden;
             text-overflow: ellipsis; 
-            max-width: 70%; /* 防止文字太长盖住按钮 */
+            max-width: 70%; 
             vertical-align: middle;
             margin: 0;
             line-height: 1;
         }
 
-        /* 🌟 终极修复：下钻按钮绝对定位钉在右侧 */
+        /* 下钻按钮绝对定位钉在右侧 */
         .drill-btn { 
             position: absolute;
-            right: 15px; /* 距离右侧的固定距离 */
+            right: 15px; 
             top: 50%;
-            transform: translateY(-50%); /* 无论标题多高，永远垂直居中 */
+            transform: translateY(-50%); 
             font-size: 11px; 
             color: #4fc3f7; 
             text-decoration: none; 
@@ -59,7 +59,7 @@
         }
         .drill-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 10px #4fc3f7; }
 
-        /* 右上角返回主页按钮（也改用垂直居中算法） */
+        /* 右上角返回主页按钮 */
         .home-btn { 
             position: absolute; 
             right: 20px; 
@@ -88,33 +88,30 @@
             padding: 5px !important; 
             box-sizing: border-box;
         }
-        .chart img {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-        }
-        iframe {
-            display: block;
-            width: 100%;
-            height: 100%;
-            border: none;
-            outline: none;
-        }
+        .chart img { max-width: 95%; max-height: 95%; object-fit: contain; }
+        iframe { display: block; width: 100%; height: 100%; border: none; outline: none; }
 
-        /* 修复模块2：按比例缩小数据看板 */
+        /* 数据看板 */
         .data-stat-box { display: flex; flex-wrap: wrap; width: 100%; height: 100%; gap: 5px; justify-content: space-around; align-items: center; padding: 5px; box-sizing: border-box;}
         .data-stat-item { background: rgba(79, 195, 247, 0.1); border: 1px solid rgba(79, 195, 247, 0.3); border-radius: 4px; padding: 2px; text-align: center; width: 45%; height: 42%; display: flex; flex-direction: column; justify-content: center; }
         .data-stat-item h3 { color: #4fc3f7; margin: 0; font-size: 1.1em; font-family: monospace;}
         .data-stat-item p { color: #ccc; font-size: 0.65em; margin: 0; }
 
-        /* 修复模块5：按比例缩小 DEA 排行榜单 */
-        .dea-table { width: 98%; border-collapse: collapse; font-size: 0.75em; color: #E0E0E0; text-align: center; margin-top: 0; }
-        .dea-table th { border-bottom: 1px solid #4fc3f7; color: #4fc3f7; padding: 6px 4px; }
-        .dea-table td { padding: 6px 4px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
+        /* 🌟 核心修改：极致压缩 DEA 排行榜单，杜绝重叠 */
+        .dea-table { 
+            width: 95%; /* 稍微收窄一点 */
+            border-collapse: collapse; 
+            font-size: 0.65em; /* 进一步缩小字号 */
+            color: #E0E0E0; 
+            text-align: center; 
+            margin-top: 8px; /* 强制往下推，远离标题栏 */
+        }
+        .dea-table th { border-bottom: 1px solid #4fc3f7; color: #4fc3f7; padding: 3px 2px; } /* 压缩表头高度 */
+        .dea-table td { padding: 3px 2px; border-bottom: 1px dashed rgba(255,255,255,0.1); } /* 压缩单元格高度 */
         .rank-top { color: #39FF14; font-weight: bold; }
         .rank-bottom { color: #FF3131; font-weight: bold; }
 
-        /* 修复模块8：缩小战略看板避免溢出 */
+        /* 战略看板 */
         .policy-card { background: rgba(226, 138, 43, 0.1); border-left: 3px solid #e28a2b; padding: 8px; margin-bottom: 5px; width: 95%; text-align: left; box-sizing: border-box;}
         .policy-card h4 { color: #e28a2b; margin: 0 0 4px 0; font-size: 0.85em; }
         .policy-card p { color: #ddd; font-size: 0.7em; margin: 0; line-height: 1.3; }
