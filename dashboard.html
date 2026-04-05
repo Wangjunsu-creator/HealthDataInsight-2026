@@ -9,7 +9,7 @@
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* 🌟 核心修复1：强制锁定所有面板，绝对禁止溢出 */
+        /* 强制锁定所有面板，绝对禁止溢出 */
         .panel {
             display: flex;
             flex-direction: column;
@@ -18,11 +18,27 @@
             overflow: hidden; 
             box-sizing: border-box;
         }
+        
+        /* 🌟 核心修复：强制标题栏单行显示，绝不换行重叠 */
         .title {
-            flex-shrink: 0; /* 保护标题不被挤压 */
+            flex-shrink: 0; 
             z-index: 10;
+            display: flex;
+            justify-content: space-between; /* 标题靠左，按钮靠右 */
+            align-items: center; /* 垂直居中 */
+            width: 100%;
+            box-sizing: border-box;
+            padding-right: 5px;
         }
-        /* 🌟 核心修复2：图表容器自适应剩余空间 */
+        .title label {
+            font-size: 0.9em; /* 稍微缩小一点标题字号 */
+            white-space: nowrap; /* 强制标题不换行 */
+            overflow: hidden;
+            text-overflow: ellipsis; /* 如果实在太长就显示省略号 */
+            flex: 1;
+        }
+
+        /* 图表容器自适应剩余空间 */
         .chart {
             flex: 1; 
             width: 100%;
@@ -30,8 +46,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* 裁剪所有越界内容 */
-            padding: 5px !important; /* 缩小内边距留出空间 */
+            overflow: hidden; 
+            padding: 5px !important; 
             box-sizing: border-box;
         }
         .chart img {
@@ -39,7 +55,7 @@
             max-height: 95%;
             object-fit: contain;
         }
-        /* 🌟 核心修复3：强行把地图 iframe 锁死在框内 */
+        /* 强行把地图 iframe 锁死在框内 */
         iframe {
             display: block;
             width: 100%;
@@ -48,28 +64,40 @@
             outline: none;
         }
 
-        /* 大屏内部的下钻小按钮 */
-        .drill-btn { float: right; font-size: 12px; color: #4fc3f7; text-decoration: none; border: 1px solid rgba(79, 195, 247, 0.5); padding: 1px 6px; border-radius: 4px; background: rgba(11, 28, 87, 0.5); transition: all 0.3s; margin-top: 2px; margin-right: 5px; }
+        /* 🌟 核心修复：下钻小按钮样式更新 */
+        .drill-btn { 
+            flex-shrink: 0; /* 绝对不允许按钮被挤压变形 */
+            white-space: nowrap; /* 绝对不允许按钮文字换行 */
+            font-size: 11px; 
+            color: #4fc3f7; 
+            text-decoration: none; 
+            border: 1px solid rgba(79, 195, 247, 0.5); 
+            padding: 2px 6px; 
+            border-radius: 4px; 
+            background: rgba(11, 28, 87, 0.5); 
+            transition: all 0.3s; 
+            margin-left: 5px; /* 和左边标题拉开一点距离 */
+        }
         .drill-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 10px #4fc3f7; }
 
         /* 右上角返回主页按钮 */
         .home-btn { position: absolute; right: 20px; top: 15px; color: #4fc3f7; text-decoration: none; font-size: 14px; border: 1px solid #4fc3f7; padding: 4px 15px; border-radius: 20px; transition: 0.3s; z-index: 999;}
         .home-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 15px rgba(79, 195, 247, 0.6); }
 
-        /* 🌟 修复模块2：按比例缩小数据看板 */
+        /* 修复模块2：按比例缩小数据看板 */
         .data-stat-box { display: flex; flex-wrap: wrap; width: 100%; height: 100%; gap: 5px; justify-content: space-around; align-items: center; padding: 5px; box-sizing: border-box;}
         .data-stat-item { background: rgba(79, 195, 247, 0.1); border: 1px solid rgba(79, 195, 247, 0.3); border-radius: 4px; padding: 2px; text-align: center; width: 45%; height: 42%; display: flex; flex-direction: column; justify-content: center; }
         .data-stat-item h3 { color: #4fc3f7; margin: 0; font-size: 1.1em; font-family: monospace;}
         .data-stat-item p { color: #ccc; font-size: 0.65em; margin: 0; }
 
-        /* 🌟 修复模块5：按比例缩小 DEA 排行榜单 */
+        /* 修复模块5：按比例缩小 DEA 排行榜单 */
         .dea-table { width: 98%; border-collapse: collapse; font-size: 0.7em; color: #E0E0E0; text-align: center; margin-top: 0; }
         .dea-table th { border-bottom: 1px solid #4fc3f7; color: #4fc3f7; padding: 4px; }
         .dea-table td { padding: 4px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
         .rank-top { color: #39FF14; font-weight: bold; }
         .rank-bottom { color: #FF3131; font-weight: bold; }
 
-        /* 🌟 修复模块8：缩小战略看板避免溢出 */
+        /* 修复模块8：缩小战略看板避免溢出 */
         .policy-card { background: rgba(226, 138, 43, 0.1); border-left: 3px solid #e28a2b; padding: 6px; margin-bottom: 5px; width: 95%; text-align: left; box-sizing: border-box;}
         .policy-card h4 { color: #e28a2b; margin: 0 0 3px 0; font-size: 0.85em; }
         .policy-card p { color: #ddd; font-size: 0.65em; margin: 0; line-height: 1.2; }
