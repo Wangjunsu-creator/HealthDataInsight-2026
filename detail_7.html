@@ -4,40 +4,42 @@
     <meta charset="UTF-8">
     <title>深度解析舱：低效洼地空间预警诊断</title>
     <style>
-        /* 全局暗黑科技风设定 */
+        /* 全局暗黑科技风设定 - 恢复统一色调 */
         body {
             margin: 0; padding: 0; background-color: #0b0f19;
             background-image: radial-gradient(circle at 50% 50%, #1a233a 0%, #0b0f19 80%);
             color: #E0E0E0; font-family: 'Microsoft YaHei', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column;
         }
 
-        /* 顶部导航栏 */
+        /* 顶部导航栏 - 恢复科技蓝标题 */
         .header { height: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; background: rgba(11, 28, 87, 0.4); border-bottom: 1px solid rgba(79, 195, 247, 0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .header h2 { margin: 0; font-size: 1.2em; color: #FF0055; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255, 0, 85, 0.5); }
+        .header h2 { margin: 0; font-size: 1.2em; color: #4fc3f7; letter-spacing: 2px; text-shadow: 0 0 10px rgba(79, 195, 247, 0.5); }
         .back-btn { color: #fff; text-decoration: none; border: 1px solid #4fc3f7; padding: 6px 20px; border-radius: 20px; background: rgba(79, 195, 247, 0.1); transition: all 0.3s; font-size: 0.9em; }
         .back-btn:hover { background: #4fc3f7; color: #0b0f19; box-shadow: 0 0 15px rgba(79, 195, 247, 0.8); }
 
         /* 布局 */
         .container { display: flex; flex: 1; padding: 20px; gap: 20px; box-sizing: border-box; height: calc(100vh - 60px); }
 
-        /* 面板统一风格 (偏红色预警风) */
-        .panel { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 0, 85, 0.2); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: inset 0 0 20px rgba(255, 0, 85, 0.05); position: relative; }
-        .panel::before { content: ''; position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid #FF0055; border-left: 2px solid #FF0055; }
-        .panel-title { color: #fff; font-size: 1.1em; margin-top: 0; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed rgba(255, 0, 85, 0.3); }
+        /* 面板统一风格 - 恢复科技蓝边框 */
+        .panel { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(79, 195, 247, 0.2); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: inset 0 0 20px rgba(79, 195, 247, 0.05); position: relative; }
+        .panel::before { content: ''; position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid #4fc3f7; border-left: 2px solid #4fc3f7; }
+        .panel-title { color: #fff; font-size: 1.1em; margin-top: 0; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed rgba(79, 195, 247, 0.3); }
 
         /* 左侧提词区 */
         .left-panel { flex: 0 0 25%; }
         .insight-item { margin-bottom: 20px; line-height: 1.5; }
-        .insight-item span { display: inline-block; color: #FF0055; font-size: 1.1em; font-weight: bold; margin-bottom: 5px; text-shadow: 0 0 8px rgba(255, 0, 85, 0.4); }
+        /* 内部小标题保留橙色/红色对比，增加可读性 */
+        .insight-item span { display: inline-block; color: #e28a2b; font-size: 1.1em; font-weight: bold; margin-bottom: 5px; text-shadow: 0 0 8px rgba(226, 138, 43, 0.4); }
         .insight-item p { margin: 0; color: #b0c4de; font-size: 0.85em; }
 
         /* 中央视图区 */
         .center-panel { flex: 0 0 48%; justify-content: center; align-items: center; }
-        .center-panel img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 0 20px rgba(255,0,85,0.2)); border-radius: 8px;}
+        .center-panel img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 0 20px rgba(0,0,0,0.4)); border-radius: 8px;}
 
         /* 右侧打分看板 */
         .right-panel { flex: 1; overflow-y: auto; }
-        .data-card { background: rgba(255,0,85,0.05); border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,0,85,0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
+        .data-card { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        /* 数据标题保留红色预警感 */
         .data-card h4 { margin: 0 0 15px 0; font-size: 0.95em; color: #FF0055; border-left: 3px solid #FF0055; padding-left: 10px; }
         
         .score-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.05);}
@@ -45,7 +47,7 @@
         .prov-name { font-size: 0.9em; color: #fff; width: 45px; font-weight: bold;}
         .score-bar-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin: 0 15px; overflow: hidden; }
         
-        /* 核心填充色：同步荧光红与电竞紫渐变 */
+        /* 数据条颜色保留红色预警渐变 */
         .score-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #7000FF, #FF0055); box-shadow: 0 0 10px rgba(255,0,85,0.6); transition: width 1.5s ease-in-out; }
         .score-val { font-family: monospace; font-size: 1.1em; width: 60px; text-align: right; color: #FF0055; font-weight: bold;}
         
@@ -53,7 +55,7 @@
         
         /* 自定义滚动条 */
         .right-panel::-webkit-scrollbar { width: 6px; }
-        .right-panel::-webkit-scrollbar-thumb { background: rgba(255, 0, 85, 0.3); border-radius: 3px; }
+        .right-panel::-webkit-scrollbar-thumb { background: rgba(79, 195, 247, 0.3); border-radius: 3px; }
     </style>
 </head>
 <body>
@@ -75,12 +77,12 @@
             
             <div class="insight-item">
                 <span>02 / 绝对低效区：地理与基建双重约束</span>
-                <p>在最新 2022 年截面中，<strong>西藏 (0.9314)</strong> 与 <strong>宁夏 (0.9626)</strong> 得分垫底。这反映了西部地广人稀区域在医疗资源空间配置上的天然劣势，导致规模效率难以突破。</p>
+                <p>在最新 2022 年截面中，<strong>西藏 (0.9314)</strong> 与 <strong>宁夏 (0.9626)</strong> 得分垫底。这反映了西部地广人稀区域在医疗资源空间配置上的天然劣势。</p>
             </div>
 
             <div class="insight-item">
-                <span>03 / 隐性低效区：经济大省的效能陷阱</span>
-                <p>值得警惕的是，<strong>广东 (0.9919)、江苏 (0.9987)</strong> 等经济大省同样被系统预警！尽管其得分逼近 1.0，但在庞大的投入基数下，微小的效率折损也意味着巨大的资源沉没，亟需转向内涵式结构优化。</p>
+                <span style="color: #FF0055;">03 / 隐性低效区：经济大省效能陷阱</span>
+                <p>值得警惕的是，<strong>广东 (0.9919)、江苏 (0.9987)</strong> 等经济大省同样被系统预警！尽管得分接近满分，但在庞大的投入基数下，微小的折损也意味着巨大的资源沉没。</p>
             </div>
         </div>
 
@@ -146,7 +148,7 @@
             </div>
 
             <div class="alert-box">
-                <strong><span style="color: #FF0055;">[预警归因警报]</span></strong> 侦测到上述省份由于资源过度集聚，正处于严重的“低效转化”陷阱。建议打破单一的硬件规模扩张，强化跨区域医疗协作体建设。
+                <strong><span style="color: #FF0055;">[预警归因警报]</span></strong> 侦测到上述省份由于资源过度集聚，正处于隐性的“低效转化”陷阱。建议停止盲目扩张，启动内涵式结构优化预案。
             </div>
             
         </div>
