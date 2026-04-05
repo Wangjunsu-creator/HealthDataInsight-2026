@@ -6,72 +6,39 @@
     <title>“健康中国”全景医疗效能动态监测大屏</title>
     <style>
         /* 隐藏网页默认滚动条，大屏录制更纯粹 */
-        ::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-        }
-        body {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* 增加全局样式，确保图片和地图在框内居中并自适应 */
-        .chart {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-        .chart img {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            outline: none;
-        }
+        .chart { display: flex; justify-content: center; align-items: center; overflow: hidden; height: 100%; flex-direction: column; }
+        .chart img { max-width: 95%; max-height: 95%; object-fit: contain; }
+        iframe { width: 100%; height: 100%; border: none; outline: none; }
 
-        /* 🌟 核心升级：大屏内部的下钻小按钮 */
-        .drill-btn {
-            float: right;
-            font-size: 12px;
-            color: #4fc3f7;
-            text-decoration: none;
-            border: 1px solid rgba(79, 195, 247, 0.5);
-            padding: 2px 8px;
-            border-radius: 4px;
-            background: rgba(11, 28, 87, 0.5);
-            transition: all 0.3s;
-            margin-top: 2px;
-            margin-right: 10px;
-        }
-        .drill-btn:hover {
-            background: #4fc3f7;
-            color: #0b1c57;
-            box-shadow: 0 0 10px #4fc3f7;
-        }
+        /* 大屏内部的下钻小按钮 */
+        .drill-btn { float: right; font-size: 12px; color: #4fc3f7; text-decoration: none; border: 1px solid rgba(79, 195, 247, 0.5); padding: 2px 8px; border-radius: 4px; background: rgba(11, 28, 87, 0.5); transition: all 0.3s; margin-top: 2px; margin-right: 10px; }
+        .drill-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 10px #4fc3f7; }
 
         /* 右上角返回主页按钮 */
-        .home-btn {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            color: #4fc3f7;
-            text-decoration: none;
-            font-size: 14px;
-            border: 1px solid #4fc3f7;
-            padding: 4px 15px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
-        .home-btn:hover {
-            background: #4fc3f7;
-            color: #0b1c57;
-            box-shadow: 0 0 15px rgba(79, 195, 247, 0.6);
-        }
+        .home-btn { position: absolute; right: 20px; top: 15px; color: #4fc3f7; text-decoration: none; font-size: 14px; border: 1px solid #4fc3f7; padding: 4px 15px; border-radius: 20px; transition: 0.3s; z-index: 999;}
+        .home-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 15px rgba(79, 195, 247, 0.6); }
+
+        /* 专属组件：数据基建看板 */
+        .data-stat-box { display: flex; flex-wrap: wrap; width: 90%; gap: 10px; justify-content: space-between;}
+        .data-stat-item { background: rgba(79, 195, 247, 0.1); border: 1px solid rgba(79, 195, 247, 0.3); border-radius: 6px; padding: 10px; text-align: center; width: 45%; }
+        .data-stat-item h3 { color: #4fc3f7; margin: 5px 0; font-size: 1.5em; font-family: monospace;}
+        .data-stat-item p { color: #ccc; font-size: 0.75em; margin: 0; }
+
+        /* 专属组件：DEA 效能排行榜单 */
+        .dea-table { width: 90%; border-collapse: collapse; font-size: 0.85em; color: #E0E0E0; text-align: center; }
+        .dea-table th { border-bottom: 1px solid #4fc3f7; color: #4fc3f7; padding: 6px; }
+        .dea-table td { padding: 6px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
+        .rank-top { color: #39FF14; font-weight: bold; }
+        .rank-bottom { color: #FF3131; font-weight: bold; }
+
+        /* 专属组件：战略看板 */
+        .policy-card { background: rgba(226, 138, 43, 0.1); border-left: 4px solid #e28a2b; padding: 10px; margin-bottom: 8px; width: 90%; text-align: left; }
+        .policy-card h4 { color: #e28a2b; margin: 0 0 5px 0; font-size: 1em; }
+        .policy-card p { color: #ddd; font-size: 0.75em; margin: 0; }
     </style>
 </head>
 <body class="fill-parent"
@@ -82,7 +49,7 @@
 <div class="head">
     <div class="title">
         <label>“健康中国”全景医疗效能动态监测大屏</label>
-        <a href="index.html" class="home-btn">🏠 返回学术主页</a>
+        <a href="index.html" class="home-btn">🏠 返回门厅</a>
     </div>
 </div>
 
@@ -90,12 +57,10 @@
     <div class="layout layout-left-top">
 		<div class="panel border-all">
 			<div class="title">
-                <label>医疗资源投入趋势 (WDI)</label>
+                <label>1. 宏观视域与挑战</label>
                 <a href="detail_1.html" class="drill-btn">⚡ 深度解析</a>
             </div>
-			<div class="chart">
-                <img src="images/picture1_achievement_foundation_final.png" alt="资源投入趋势">
-            </div>
+			<div class="chart"><img src="images/picture1_achievement_foundation_final.png" alt="宏观视域"></div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
@@ -103,11 +68,17 @@
     <div class="layout layout-left-center">
 		<div class="panel border-all">
 			<div class="title">
-                <label>核心慢性病致死率监控</label>
-                <a href="detail_2.html" class="drill-btn">⚡ 深度解析</a>
+                <label>2. 数据基建与清洗底座</label>
+                <a href="detail_2.html" class="drill-btn">⚡ 交互沙盒</a>
             </div>
 			<div class="chart">
-                <img src="images/picture2_final.png" alt="慢病监控">
+                <div class="data-stat-box">
+                    <div class="data-stat-item"><h3>150,000+</h3><p>多源原始记录</p></div>
+                    <div class="data-stat-item"><h3>31</h3><p>省级截面覆盖</p></div>
+                    <div class="data-stat-item"><h3>25</h3><p>年度时间跨度</p></div>
+                    <div class="data-stat-item"><h3 style="color:#39FF14;">0.00%</h3><p>黄金期缺失率</p></div>
+                </div>
+                <p style="color:gray; font-size: 0.75em; margin-top: 15px;">核心算法: Regex正则脱水 / FFILL向后结转</p>
             </div>
 			<div class="border-foot"></div>
 		</div>
@@ -116,12 +87,10 @@
     <div class="layout layout-left-bottom">
 		<div class="panel border-all">
 			<div class="title">
-                <label>各省医疗资源演变全景</label>
+                <label>3. 核心指标特征探索</label>
                 <a href="detail_3.html" class="drill-btn">⚡ 深度解析</a>
             </div>
-			<div class="chart">
-                <img src="images/medical_resource_heatmap.png" alt="资源演变热力图">
-            </div>
+			<div class="chart"><img src="images/Pearson_Correlation_Matrix.png" alt="特征探索"></div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
@@ -129,7 +98,7 @@
     <div class="layout layout-center-top">
 		<div class="panel border-all">
 			<div class="title">
-                <label>全国医疗资源效能空间分布 (2005-2024)</label>
+                <label>4. 资源配置时空演变沙盘 (2005-2024)</label>
                 <a href="detail_4.html" class="drill-btn">⚡ 深度解析</a>
             </div>
 			<div class="chart" style="padding: 0;">
@@ -142,11 +111,20 @@
     <div class="layout layout-center-bottom">
 		<div class="panel border-all">
 			<div class="title">
-                <label>各省指标数据时空覆盖度</label>
+                <label>5. DEA-BCC 综合效能评估基线</label>
                 <a href="detail_5.html" class="drill-btn">⚡ 深度解析</a>
             </div>
-			<div class="chart">
-                <img src="images/Data_Availability_Heatmap.png" alt="数据覆盖度">
+			<div class="chart" style="justify-content: flex-start; padding-top: 15px;">
+                <table class="dea-table">
+                    <tr><th>排名</th><th>省份</th><th>综合技术效率(TE)</th><th>规模效率(SE)</th></tr>
+                    <tr><td class="rank-top">TOP 1</td><td>北京市</td><td>1.000 (DEA有效)</td><td>1.000</td></tr>
+                    <tr><td class="rank-top">TOP 2</td><td>上海市</td><td>1.000 (DEA有效)</td><td>1.000</td></tr>
+                    <tr><td class="rank-top">TOP 3</td><td>浙江省</td><td>0.985 (高优转化)</td><td>0.992</td></tr>
+                    <tr><td colspan="4" style="color:#555;">... 省略中间梯队 ...</td></tr>
+                    <tr><td class="rank-bottom">BTM 3</td><td>青海省</td><td>0.684 (配置冗余)</td><td>0.712</td></tr>
+                    <tr><td class="rank-bottom">BTM 2</td><td>甘肃省</td><td>0.652 (配置冗余)</td><td>0.690</td></tr>
+                    <tr><td class="rank-bottom">BTM 1</td><td>西藏自治区</td><td>0.543 (极度洼地)</td><td>0.588</td></tr>
+                </table>
             </div>
 			<div class="border-foot"></div>
 		</div>
@@ -155,12 +133,10 @@
     <div class="layout layout-right-top">
 		<div class="panel border-all">
 			<div class="title">
-                <label>四大聚类群体多维特征雷达</label>
+                <label>6. 效能多维特征聚类画像</label>
                 <a href="detail_6.html" class="drill-btn">⚡ 深度解析</a>
             </div>
-			<div class="chart">
-                <img src="images/Chart5_cluster_radar_colored.png" alt="聚类特征雷达图">
-            </div>
+			<div class="chart"><img src="images/Chart5_cluster_radar_colored.png" alt="多维特征雷达"></div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
@@ -168,12 +144,10 @@
     <div class="layout layout-right-center">
 		<div class="panel border-all">
 			<div class="title">
-                <label>核心投入-产出相关性矩阵</label>
+                <label>7. 低效洼地空间预警诊断</label>
                 <a href="detail_7.html" class="drill-btn">⚡ 深度解析</a>
             </div>
-			<div class="chart">
-                <img src="images/Pearson_Correlation_Matrix.png" alt="相关性矩阵">
-            </div>
+			<div class="chart"><img src="images/medical_resource_heatmap.png" alt="效能洼地预警"></div>
 			<div class="border-foot"></div>
 		</div>
 	</div>
@@ -181,11 +155,18 @@
     <div class="layout layout-right-bottom">
 		<div class="panel border-all">
 			<div class="title">
-                <label>各省效能特征聚类参考</label>
+                <label>8. 宏观结论与靶向施策</label>
                 <a href="detail_8.html" class="drill-btn">⚡ 深度解析</a>
             </div>
-			<div class="chart">
-                <img src="images/medical_resource_heatmap.png" alt="区域预警参考">
+			<div class="chart" style="padding-top: 10px;">
+                <div class="policy-card">
+                    <h4>🎯 靶向治理：打破纯技术低效</h4>
+                    <p>多数省份规模效率已近极值(均值>0.9)，必须从“扩规模”转向“调结构”，遏制盲目扩张。</p>
+                </div>
+                <div class="policy-card" style="border-left-color: #39FF14;">
+                    <h4 style="color: #39FF14;">🤝 跨域协同：高能级溢出</h4>
+                    <p>建议以“高优区”为核心建立跨省专科医联体，向“低效洼地”进行技术与管理双重赋能。</p>
+                </div>
             </div>
 			<div class="border-foot"></div>
 		</div>
