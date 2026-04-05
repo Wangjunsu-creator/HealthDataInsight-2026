@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>深度解析舱：核心指标特征探索</title>
+    <style>
+        /* 全局暗黑科技风设定 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0b0f19;
+            background-image: radial-gradient(circle at 50% 50%, #1a233a 0%, #0b0f19 80%);
+            color: #E0E0E0;
+            font-family: 'Microsoft YaHei', sans-serif;
+            height: 100vh;
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            background: rgba(11, 28, 87, 0.4);
+            border-bottom: 1px solid rgba(79, 195, 247, 0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #4fc3f7;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+        .back-btn {
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #4fc3f7;
+            padding: 6px 20px;
+            border-radius: 20px;
+            background: rgba(79, 195, 247, 0.1);
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        .back-btn:hover { background: #4fc3f7; color: #0b0f19; box-shadow: 0 0 15px rgba(79, 195, 247, 0.8); }
+
+        /* 黄金三分法布局 */
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            gap: 20px;
+            box-sizing: border-box;
+            height: calc(100vh - 60px);
+        }
+
+        /* 统一玻璃拟物面板风格 */
+        .panel {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(79, 195, 247, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: inset 0 0 20px rgba(79, 195, 247, 0.05);
+            position: relative;
+        }
+        .panel::before { 
+            content: ''; position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid #4fc3f7; border-left: 2px solid #4fc3f7;
+        }
+        .panel-title {
+            color: #fff;
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(79, 195, 247, 0.3);
+        }
+
+        /* 左侧提词区 (25%) */
+        .left-panel { flex: 0 0 25%; }
+        .insight-item { margin-bottom: 20px; line-height: 1.5; }
+        .insight-item span {
+            display: inline-block;
+            color: #e28a2b;
+            font-size: 1.15em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 0 0 8px rgba(226, 138, 43, 0.4);
+        }
+        .insight-item p { margin: 0; color: #b0c4de; font-size: 0.85em; }
+
+        /* 中央视图区 (50%) */
+        .center-panel { flex: 0 0 48%; justify-content: center; align-items: center; }
+        .center-panel img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+            border-radius: 8px;
+        }
+
+        /* 右侧阵列区 (25%) */
+        .right-panel { flex: 1; justify-content: center;}
+        
+        /* 专属组件：科技感相关性阵列表 */
+        .corr-matrix {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 2px;
+            font-size: 0.75em;
+            text-align: center;
+        }
+        .corr-matrix th {
+            color: #4fc3f7;
+            padding: 6px 2px;
+            font-weight: normal;
+            border-bottom: 1px solid rgba(79, 195, 247, 0.3);
+            writing-mode: horizontal-tb;
+            line-height: 1.2;
+        }
+        .corr-matrix td {
+            padding: 8px 2px;
+            color: #fff;
+            font-family: monospace;
+            font-size: 1.1em;
+            border-radius: 2px;
+            transition: transform 0.2s;
+        }
+        .corr-matrix td:hover { transform: scale(1.1); box-shadow: 0 0 10px rgba(255,255,255,0.5); z-index: 10;}
+        
+        /* 真实数据配色映射 */
+        .corr-100 { background: #DE2910; color: #fff !important; font-weight: bold;} /* 1.0 */
+        .corr-high { background: rgba(222, 41, 16, 0.8); } /* >0.5 */
+        .corr-med { background: rgba(226, 138, 43, 0.6); } /* 0.1~0.5 */
+        .corr-low { background: rgba(255, 255, 255, 0.1); color: #ccc;} /* 0~0.1 */
+        .corr-neg { background: rgba(79, 195, 247, 0.4); color: #fff;} /* 负相关 */
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>[模块 03] 核心指标相关性网络与特征探索</h2>
+        <a href="dashboard.html" class="back-btn">⬅ 返回全景中控台</a>
+    </div>
+
+    <div class="container">
+        
+        <div class="panel left-panel">
+            <h3 class="panel-title">💡 数据驱动的特征筛选逻辑</h3>
+            
+            <div class="insight-item">
+                <span>01 / 医疗人才与经济高度绑定</span>
+                <p><strong>卫生人员数量</strong>与<strong>地区GDP</strong>呈现极强的正相关 (0.86)，印证了高素质医疗人才向经济高地聚集的马太效应。</p>
+            </div>
+            
+            <div class="insight-item">
+                <span>02 / “人与财”驱动健康产出</span>
+                <p>观察核心产出项（预期寿命），发现其与<strong>地区GDP</strong> (0.54) 及<strong>卫生人员数量</strong> (0.35) 呈显著正相关，说明现阶段驱动寿命跨越的核心要素依然是“人与财”。</p>
+            </div>
+
+            <div class="insight-item">
+                <span>03 / 硬件冗余预警显现</span>
+                <p>值得警惕的是，<strong>床位密度</strong>和<strong>财政支出</strong>对预期寿命竟呈现出微弱的负相关（-0.10 和 -0.05）。这说明单纯砸钱建楼、增加床位的粗放式硬件扩张，已无法带来预期收益，甚至存在严重的效能转化瓶颈。</p>
+            </div>
+
+            <div class="insight-item" style="margin-top: auto; margin-bottom: 0;">
+                <span style="color: #4fc3f7; font-size: 0.9em; text-shadow: none;">📌 DEA 模型变量敲定</span>
+                <p style="color: #4fc3f7; font-size: 0.8em;">基于以上异质性相关特征，排除了共线性干扰，为下阶段 DEA-BCC 效能测算奠定了坚实的变量选择基础。</p>
+            </div>
+        </div>
+
+        <div class="panel center-panel">
+            <h3 class="panel-title" style="width: 100%; text-align: left; margin-bottom: 10px;">📉 图 3：核心投入-产出指标 Pearson 相关性矩阵</h3>
+            <img src="images/Pearson_Correlation_Matrix.png" alt="Pearson相关性矩阵">
+        </div>
+
+        <div class="panel right-panel">
+            <h3 class="panel-title">🧮 核心变量共线性检验阵列</h3>
+            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                <table class="corr-matrix">
+                    <tr>
+                        <th style="width: 25%;">指标维度</th>
+                        <th style="width: 15%;">床位<br>密度</th>
+                        <th style="width: 15%;">财政<br>支出</th>
+                        <th style="width: 15%;">卫生<br>人员</th>
+                        <th style="width: 15%;">预期<br>寿命</th>
+                        <th style="width: 15%;">地区<br>GDP</th>
+                    </tr>
+                    <tr>
+                        <td style="background:transparent; text-align:right; padding-right:5px; color:#4fc3f7; font-size: 0.9em;">床位密度</td>
+                        <td class="corr-100">1.00</td>
+                        <td class="corr-low">0.08</td>
+                        <td class="corr-neg">-0.06</td>
+                        <td class="corr-neg">-0.10</td>
+                        <td class="corr-neg">-0.03</td>
+                    </tr>
+                    <tr>
+                        <td style="background:transparent; text-align:right; padding-right:5px; color:#4fc3f7; font-size: 0.9em;">财政支出</td>
+                        <td class="corr-low">0.08</td>
+                        <td class="corr-100">1.00</td>
+                        <td class="corr-neg">-0.18</td>
+                        <td class="corr-neg">-0.05</td>
+                        <td class="corr-neg">-0.09</td>
+                    </tr>
+                    <tr>
+                        <td style="background:transparent; text-align:right; padding-right:5px; color:#4fc3f7; font-size: 0.9em;">卫生人员</td>
+                        <td class="corr-neg">-0.06</td>
+                        <td class="corr-neg">-0.18</td>
+                        <td class="corr-100">1.00</td>
+                        <td class="corr-med">0.35</td>
+                        <td class="corr-high">0.86</td>
+                    </tr>
+                    <tr>
+                        <td style="background:transparent; text-align:right; padding-right:5px; color:#e28a2b; font-size: 0.9em;">预期寿命</td>
+                        <td class="corr-neg">-0.10</td>
+                        <td class="corr-neg">-0.05</td>
+                        <td class="corr-med">0.35</td>
+                        <td class="corr-100">1.00</td>
+                        <td class="corr-high">0.54</td>
+                    </tr>
+                    <tr>
+                        <td style="background:transparent; text-align:right; padding-right:5px; color:#4fc3f7; font-size: 0.9em;">地区GDP</td>
+                        <td class="corr-neg">-0.03</td>
+                        <td class="corr-neg">-0.09</td>
+                        <td class="corr-high">0.86</td>
+                        <td class="corr-high">0.54</td>
+                        <td class="corr-100">1.00</td>
+                    </tr>
+                </table>
+                <p style="text-align: right; color: #555; font-size: 0.75em; margin-top: 15px;">* Pearson r 系数测算结果</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
