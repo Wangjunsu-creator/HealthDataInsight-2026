@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>深度解析舱：DEA 综合效能评估基线</title>
+    <style>
+        /* 全局暗黑科技风设定 */
+        body {
+            margin: 0; padding: 0; background-color: #0b0f19;
+            background-image: radial-gradient(circle at 50% 50%, #1a233a 0%, #0b0f19 80%);
+            color: #E0E0E0; font-family: 'Microsoft YaHei', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column;
+        }
+
+        /* 顶部导航栏 */
+        .header { height: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; background: rgba(11, 28, 87, 0.4); border-bottom: 1px solid rgba(79, 195, 247, 0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .header h2 { margin: 0; font-size: 1.2em; color: #4fc3f7; letter-spacing: 2px; text-shadow: 0 0 10px rgba(79, 195, 247, 0.5); }
+        .back-btn { color: #fff; text-decoration: none; border: 1px solid #4fc3f7; padding: 6px 20px; border-radius: 20px; background: rgba(79, 195, 247, 0.1); transition: all 0.3s; font-size: 0.9em; }
+        .back-btn:hover { background: #4fc3f7; color: #0b0f19; box-shadow: 0 0 15px rgba(79, 195, 247, 0.8); }
+
+        /* 布局 */
+        .container { display: flex; flex: 1; padding: 20px; gap: 20px; box-sizing: border-box; height: calc(100vh - 60px); }
+
+        /* 面板统一风格 */
+        .panel { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(79, 195, 247, 0.2); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: inset 0 0 20px rgba(79, 195, 247, 0.05); position: relative; }
+        .panel::before { content: ''; position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid #4fc3f7; border-left: 2px solid #4fc3f7; }
+        .panel-title { color: #fff; font-size: 1.1em; margin-top: 0; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed rgba(79, 195, 247, 0.3); }
+
+        /* 左侧提词区 */
+        .left-panel { flex: 0 0 25%; }
+        .insight-item { margin-bottom: 20px; line-height: 1.5; }
+        .insight-item span { display: inline-block; color: #e28a2b; font-size: 1.1em; font-weight: bold; margin-bottom: 5px; text-shadow: 0 0 8px rgba(226, 138, 43, 0.4); }
+        .insight-item p { margin: 0; color: #b0c4de; font-size: 0.85em; }
+
+        /* 中央视图区 */
+        .center-panel { flex: 0 0 48%; justify-content: center; align-items: center; }
+        .center-panel img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 0 20px rgba(0,0,0,0.4)); border-radius: 8px;}
+
+        /* 右侧打分看板 */
+        .right-panel { flex: 1; }
+        .data-card { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .data-card h4 { margin: 0 0 15px 0; font-size: 0.95em; color: #4fc3f7; border-left: 3px solid #4fc3f7; padding-left: 10px; }
+        
+        .score-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.05);}
+        .score-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+        .prov-name { font-size: 1em; color: #fff; width: 60px; font-weight: bold;}
+        .score-bar-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin: 0 15px; overflow: hidden; }
+        .score-bar-fill { height: 100%; border-radius: 3px; transition: width 1.5s ease-in-out; }
+        .score-val { font-family: monospace; font-size: 1.1em; width: 50px; text-align: right; }
+        
+        .color-excellent { background: #39FF14; box-shadow: 0 0 8px #39FF14; }
+        .color-danger { background: #FF3131; box-shadow: 0 0 8px #FF3131; }
+
+        .model-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;}
+        .tag { background: rgba(79, 195, 247, 0.1); border: 1px solid rgba(79, 195, 247, 0.4); color: #4fc3f7; padding: 4px 8px; border-radius: 4px; font-size: 0.75em; font-family: monospace;}
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>[模块 05] DEA-BCC 综合效能评估与聚类诊断基线</h2>
+        <a href="dashboard.html" class="back-btn">⬅ 返回全景中控台</a>
+    </div>
+
+    <div class="container">
+        
+        <div class="panel left-panel">
+            <h3 class="panel-title">💡 效能诊断洞察</h3>
+            
+            <div class="insight-item">
+                <span>01 / 标杆前沿面锁定 (SE=1.0)</span>
+                <p>基于 DEA 规模效率测算，<strong>上海、北京</strong>凭借极高的健康产出转化率稳居最优前沿面。值得注意的是，<strong>青海</strong>同样达到 1.0 满分，这印证了在有限投入基数下，其资源并未闲置，实现了本省规模下的最优解。</p>
+            </div>
+            
+            <div class="insight-item">
+                <span>02 / 边际效益递减预警</span>
+                <p>观察底部洼地，除了受限于地理环境的西藏与内蒙古，经济强省<strong>浙江 (0.960)</strong> 竟赫然在列。这明确暴露了东部发达省份存在的“投入冗余”现象——硬件扩张已遭遇健康产出提升的天花板。</p>
+            </div>
+
+            <div class="insight-item">
+                <span>03 / 靶向聚类分群</span>
+                <p>测算出的 DEA_CCR 与 DEA_BCC 得分，已一并输入聚类算法 (Cluster)，将全国划分为“高投入低转化”、“平衡发展”等多维阵营，为后续差异化政策干预提供准星。</p>
+            </div>
+
+            <div class="insight-item" style="margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                <p style="color: gray; font-size: 0.8em; line-height: 1.4;">
+                    * 投入导向型 (Input-Oriented) 测算假设：在不降低现有预期寿命等产出的前提下，最大化缩减资源冗余。
+                </p>
+            </div>
+        </div>
+
+        <div class="panel center-panel">
+            <h3 class="panel-title" style="width: 100%; text-align: left; margin-bottom: 10px;">📉 图 6：各聚类群体医疗资源效能特征对比雷达图</h3>
+            <img src="images/Chart5_cluster_radar_colored.jpg" alt="聚类雷达图" onerror="this.src='https://via.placeholder.com/600x400/0b0f19/4fc3f7?text=Image+Not+Found+(Check+Path)'">
+        </div>
+
+        <div class="panel right-panel">
+            <h3 class="panel-title">🧮 规模效率 (SE) 评估基线表</h3>
+            
+            <div class="data-card">
+                <h4>🌟 全国效能标杆 (Top 3)</h4>
+                
+                <div class="score-row">
+                    <div class="prov-name">上海</div>
+                    <div class="score-bar-bg"><div class="score-bar-fill color-excellent" style="width: 100%;"></div></div>
+                    <div class="score-val" style="color: #39FF14;">1.000</div>
+                </div>
+                <div class="score-row">
+                    <div class="prov-name">青海</div>
+                    <div class="score-bar-bg"><div class="score-bar-fill color-excellent" style="width: 100%;"></div></div>
+                    <div class="score-val" style="color: #39FF14;">1.000</div>
+                </div>
+                <div class="score-row">
+                    <div class="prov-name">北京</div>
+                    <div class="score-bar-bg"><div class="score-bar-fill color-excellent" style="width: 100%;"></div></div>
+                    <div class="score-val" style="color: #39FF14;">1.000</div>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <h4>⚠️ 资源冗余洼地 (Bottom 3)</h4>
+                
+                <div class="score-row">
+                    <div class="prov-name">浙江</div>
+                    <div class="score-bar-bg"><div class="score-bar-fill color-danger" style="width: 96%;"></div></div>
+                    <div class="score-val" style="color: #FF3131;">0.960</div>
+                </div>
+                <div class="score-row">
+                    <div class="prov-name">内蒙古</div>
+                    <div class="score-bar-bg"><div class="score-bar-fill color-danger" style="width: 95.7%;"></div></div>
+                    <div class="score-val" style="color: #FF3131;">0.958</div>
+                </div>
+                <div class="score-row">
+                    <div class="prov-name">西藏</div>
+                    <div class="score-bar-bg"><div class="score-bar-fill color-danger" style="width: 93.1%;"></div></div>
+                    <div class="score-val" style="color: #FF3131;">0.931</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <span style="color: #ccc; font-size: 0.85em;">🔍 核心模型参数溯源：</span>
+                <div class="model-tags">
+                    <span class="tag">DEA_CCR</span>
+                    <span class="tag">DEA_BCC</span>
+                    <span class="tag">规模效率(SE)</span>
+                    <span class="tag">K-Means Cluster</span>
+                    <span class="tag">预期寿命(产出)</span>
+                    <span class="tag">inv_孕产妇死亡率(产出)</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
