@@ -7,9 +7,9 @@
     <style>
         /* 隐藏网页默认滚动条，大屏录制更纯粹 */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
-        body { -ms-overflow-style: none;  /* IE and Edge */ scrollbar-width: none;  /* Firefox */ }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* 强制锁定所有面板，绝对禁止溢出 */
+        /* 🌟 核心修复1：强制锁定所有面板，绝对禁止溢出 */
         .panel {
             display: flex;
             flex-direction: column;
@@ -18,65 +18,11 @@
             overflow: hidden; 
             box-sizing: border-box;
         }
-        
-        /* 标题绝对居中，为按钮提供定位基准 */
         .title {
-            position: relative; 
-            text-align: center; 
-            flex-shrink: 0; 
+            flex-shrink: 0; /* 保护标题不被挤压 */
             z-index: 10;
-            width: 100%;
-            box-sizing: border-box;
-            padding: 6px 0; /* 稍微减小标题的上下边距，给下方图表留出空间 */
         }
-        .title label {
-            display: inline-block;
-            white-space: nowrap; 
-            overflow: hidden;
-            text-overflow: ellipsis; 
-            max-width: 70%; 
-            vertical-align: middle;
-            margin: 0;
-            line-height: 1;
-        }
-
-        /* 下钻按钮绝对定位钉在右侧 */
-        .drill-btn { 
-            position: absolute;
-            right: 15px; 
-            top: 50%;
-            transform: translateY(-50%); 
-            font-size: 11px; 
-            color: #4fc3f7; 
-            text-decoration: none; 
-            border: 1px solid rgba(79, 195, 247, 0.5); 
-            padding: 2px 8px; 
-            border-radius: 4px; 
-            background: rgba(11, 28, 87, 0.5); 
-            transition: all 0.3s; 
-            white-space: nowrap;
-            z-index: 20;
-        }
-        .drill-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 10px #4fc3f7; }
-
-        /* 右上角返回主页按钮 */
-        .home-btn { 
-            position: absolute; 
-            right: 20px; 
-            top: 50%; 
-            transform: translateY(-50%);
-            color: #4fc3f7; 
-            text-decoration: none; 
-            font-size: 14px; 
-            border: 1px solid #4fc3f7; 
-            padding: 4px 15px; 
-            border-radius: 20px; 
-            transition: 0.3s; 
-            z-index: 999;
-        }
-        .home-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 15px rgba(79, 195, 247, 0.6); }
-
-        /* 图表容器自适应剩余空间 */
+        /* 🌟 核心修复2：图表容器自适应剩余空间 */
         .chart {
             flex: 1; 
             width: 100%;
@@ -84,37 +30,57 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden; 
-            padding: 5px !important; 
+            overflow: hidden; /* 裁剪所有越界内容 */
+            padding: 5px !important; /* 缩小内边距留出空间 */
             box-sizing: border-box;
         }
-        .chart img { max-width: 95%; max-height: 95%; object-fit: contain; }
-        iframe { display: block; width: 100%; height: 100%; border: none; outline: none; }
+        .chart img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+        }
+        /* 🌟 核心修复3：强行把地图 iframe 锁死在框内 */
+        iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+        }
 
-        /* 数据看板 */
+        /* 大屏内部的下钻小按钮 */
+        .drill-btn { float: right; font-size: 12px; color: #4fc3f7; text-decoration: none; border: 1px solid rgba(79, 195, 247, 0.5); padding: 1px 6px; border-radius: 4px; background: rgba(11, 28, 87, 0.5); transition: all 0.3s; margin-top: 2px; margin-right: 5px; }
+        .drill-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 10px #4fc3f7; }
+
+        /* 右上角返回主页按钮 */
+        .home-btn { position: absolute; right: 20px; top: 15px; color: #4fc3f7; text-decoration: none; font-size: 14px; border: 1px solid #4fc3f7; padding: 4px 15px; border-radius: 20px; transition: 0.3s; z-index: 999;}
+        .home-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 15px rgba(79, 195, 247, 0.6); }
+
+        /* 🌟 修复模块2：按比例缩小数据看板 */
         .data-stat-box { display: flex; flex-wrap: wrap; width: 100%; height: 100%; gap: 5px; justify-content: space-around; align-items: center; padding: 5px; box-sizing: border-box;}
         .data-stat-item { background: rgba(79, 195, 247, 0.1); border: 1px solid rgba(79, 195, 247, 0.3); border-radius: 4px; padding: 2px; text-align: center; width: 45%; height: 42%; display: flex; flex-direction: column; justify-content: center; }
         .data-stat-item h3 { color: #4fc3f7; margin: 0; font-size: 1.1em; font-family: monospace;}
         .data-stat-item p { color: #ccc; font-size: 0.65em; margin: 0; }
 
-        /* 🌟 核心修改：极致压缩 DEA 排行榜单，杜绝重叠 */
+        /* 🌟 核心定点修改：极致压缩 DEA 排行榜单 */
         .dea-table { 
-            width: 95%; /* 稍微收窄一点 */
+            width: 95%; 
             border-collapse: collapse; 
             font-size: 0.65em; /* 进一步缩小字号 */
             color: #E0E0E0; 
             text-align: center; 
-            margin-top: 8px; /* 强制往下推，远离标题栏 */
+            margin-top: 15px; /* 强行往下推，远离标题栏 */
+            margin-bottom: 5px;
         }
-        .dea-table th { border-bottom: 1px solid #4fc3f7; color: #4fc3f7; padding: 3px 2px; } /* 压缩表头高度 */
-        .dea-table td { padding: 3px 2px; border-bottom: 1px dashed rgba(255,255,255,0.1); } /* 压缩单元格高度 */
+        .dea-table th { border-bottom: 1px solid #4fc3f7; color: #4fc3f7; padding: 2px; } /* 压缩表头高度 */
+        .dea-table td { padding: 2px; border-bottom: 1px dashed rgba(255,255,255,0.1); } /* 压缩单元格高度 */
         .rank-top { color: #39FF14; font-weight: bold; }
         .rank-bottom { color: #FF3131; font-weight: bold; }
 
-        /* 战略看板 */
-        .policy-card { background: rgba(226, 138, 43, 0.1); border-left: 3px solid #e28a2b; padding: 8px; margin-bottom: 5px; width: 95%; text-align: left; box-sizing: border-box;}
-        .policy-card h4 { color: #e28a2b; margin: 0 0 4px 0; font-size: 0.85em; }
-        .policy-card p { color: #ddd; font-size: 0.7em; margin: 0; line-height: 1.3; }
+        /* 🌟 修复模块8：缩小战略看板避免溢出 */
+        .policy-card { background: rgba(226, 138, 43, 0.1); border-left: 3px solid #e28a2b; padding: 6px; margin-bottom: 5px; width: 95%; text-align: left; box-sizing: border-box;}
+        .policy-card h4 { color: #e28a2b; margin: 0 0 3px 0; font-size: 0.85em; }
+        .policy-card p { color: #ddd; font-size: 0.65em; margin: 0; line-height: 1.2; }
     </style>
 </head>
 <body class="fill-parent"
@@ -190,7 +156,7 @@
                 <label>5. DEA-BCC 综合效能评估基线</label>
                 <a href="detail_5.html" class="drill-btn">⚡ 深度解析</a>
             </div>
-			<div class="chart">
+			<div class="chart" style="justify-content: flex-start;">
                 <table class="dea-table">
                     <tr><th>排名</th><th>省份</th><th>综合技术效率</th><th>规模效率</th></tr>
                     <tr><td class="rank-top">TOP 1</td><td>北京市</td><td>1.000 (有效)</td><td>1.000</td></tr>
