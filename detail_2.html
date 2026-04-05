@@ -2,194 +2,77 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>深度解析舱：数据基建与清洗</title>
+    <title>深度解析舱：双轨数据基建与清洗</title>
     <style>
         /* 全局暗黑科技风设定 */
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #0b0f19;
+            margin: 0; padding: 0; background-color: #0b0f19;
             background-image: radial-gradient(circle at 50% 50%, #1a233a 0%, #0b0f19 80%);
-            color: #E0E0E0;
-            font-family: 'Microsoft YaHei', sans-serif;
-            height: 100vh;
-            overflow: hidden; 
-            display: flex;
-            flex-direction: column;
+            color: #E0E0E0; font-family: 'Microsoft YaHei', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column;
         }
 
         /* 顶部导航栏 */
-        .header {
-            height: 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 30px;
-            background: rgba(11, 28, 87, 0.4);
-            border-bottom: 1px solid rgba(79, 195, 247, 0.3);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        .header h2 {
-            margin: 0;
-            font-size: 1.2em;
-            color: #4fc3f7;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
-        }
-        .back-btn {
-            color: #fff;
-            text-decoration: none;
-            border: 1px solid #4fc3f7;
-            padding: 6px 20px;
-            border-radius: 20px;
-            background: rgba(79, 195, 247, 0.1);
-            transition: all 0.3s;
-            font-size: 0.9em;
-        }
+        .header { height: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; background: rgba(11, 28, 87, 0.4); border-bottom: 1px solid rgba(79, 195, 247, 0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .header h2 { margin: 0; font-size: 1.2em; color: #4fc3f7; letter-spacing: 2px; text-shadow: 0 0 10px rgba(79, 195, 247, 0.5); }
+        .back-btn { color: #fff; text-decoration: none; border: 1px solid #4fc3f7; padding: 6px 20px; border-radius: 20px; background: rgba(79, 195, 247, 0.1); transition: all 0.3s; font-size: 0.9em; }
         .back-btn:hover { background: #4fc3f7; color: #0b0f19; box-shadow: 0 0 15px rgba(79, 195, 247, 0.8); }
 
-        /* 黄金三分法布局 */
-        .container {
-            display: flex;
-            flex: 1;
-            padding: 20px;
-            gap: 20px;
-            box-sizing: border-box;
-            height: calc(100vh - 60px);
-        }
+        /* 布局 */
+        .container { display: flex; flex: 1; padding: 20px; gap: 20px; box-sizing: border-box; height: calc(100vh - 60px); }
+        .panel { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(79, 195, 247, 0.2); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: inset 0 0 20px rgba(79, 195, 247, 0.05); position: relative; }
+        .panel::before { content: ''; position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid #4fc3f7; border-left: 2px solid #4fc3f7; }
+        .panel-title { color: #fff; font-size: 1.1em; margin-top: 0; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed rgba(79, 195, 247, 0.3); }
 
-        /* 统一玻璃拟物面板风格 */
-        .panel {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(79, 195, 247, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: inset 0 0 20px rgba(79, 195, 247, 0.05);
-            position: relative;
-        }
-        .panel::before { 
-            content: ''; position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid #4fc3f7; border-left: 2px solid #4fc3f7;
-        }
-        .panel-title {
-            color: #fff;
-            font-size: 1.1em;
-            margin-top: 0;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed rgba(79, 195, 247, 0.3);
-        }
-
-        /* 左侧提词区 (25%) */
+        /* 左侧：双轨逻辑 */
         .left-panel { flex: 0 0 25%; }
-        .insight-item { margin-bottom: 25px; line-height: 1.6; }
-        .insight-item span {
-            display: inline-block;
-            color: #e28a2b;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 5px;
-            text-shadow: 0 0 8px rgba(226, 138, 43, 0.4);
-        }
-        .insight-item p { margin: 0; color: #b0c4de; font-size: 0.9em; }
+        .insight-item { margin-bottom: 18px; line-height: 1.5; }
+        .insight-item span { display: inline-block; color: #e28a2b; font-size: 1.1em; font-weight: bold; margin-bottom: 5px; }
+        .insight-item p { margin: 0; color: #b0c4de; font-size: 0.85em; }
 
-        /* 中央交互沙盒 (50%) */
+        /* 中央：沙盒 */
         .center-panel { flex: 0 0 48%; }
         .tab-nav { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
-        .tab-btn {
-            background: rgba(0,0,0,0.3);
-            color: #ccc;
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9em;
-        }
-        .tab-btn.active {
-            background: #e28a2b;
-            color: #fff;
-            border-color: #e28a2b;
-            box-shadow: 0 0 15px rgba(226,138,43,0.5);
-        }
-        .sandbox-content {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .run-btn {
-            background: rgba(79, 195, 247, 0.2);
-            color: #4fc3f7;
-            border: 1px solid #4fc3f7;
-            padding: 8px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
+        .tab-btn { background: rgba(0,0,0,0.3); color: #ccc; border: 1px solid rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85em; }
+        .tab-btn.active { background: #e28a2b; color: #fff; border-color: #e28a2b; box-shadow: 0 0 15px rgba(226,138,43,0.5); }
+        .sandbox-content { flex: 1; background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .run-btn { background: rgba(79, 195, 247, 0.2); color: #4fc3f7; border: 1px solid #4fc3f7; padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .run-btn:hover { background: #4fc3f7; color: #000; box-shadow: 0 0 10px #4fc3f7;}
-        .input-box {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
-            padding: 8px;
-            border-radius: 4px;
-            width: 60%;
-        }
 
-        /* 右侧终端日志区 (25%) */
+        /* 右侧：终端 */
         .right-panel { flex: 1; }
-        .terminal-box {
-            background: #050a14;
-            border: 1px solid #333;
-            border-radius: 6px;
-            padding: 15px;
-            height: 100%;
-            overflow-y: hidden;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.85em;
-            color: #39FF14;
-            line-height: 1.5;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
-        }
-        .terminal-header { color: #555; margin-bottom: 10px; border-bottom: 1px dashed #333; padding-bottom: 5px;}
-        .log-line { display: block; opacity: 0; animation: typeIn 0.1s forwards; margin-bottom: 3px;}
-        .log-error { color: #FF3131; }
+        .terminal-box { background: #050a14; border: 1px solid #333; border-radius: 6px; padding: 15px; height: 100%; overflow-y: hidden; font-family: 'Courier New', Courier, monospace; font-size: 0.82em; color: #39FF14; line-height: 1.4; }
+        .log-line { display: block; opacity: 0; animation: typeIn 0.1s forwards; margin-bottom: 2px;}
         .log-warn { color: #e28a2b; }
-        
         @keyframes typeIn { to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h2>[模块 02] 数据基建与特征工程预处理沙盒</h2>
+        <h2>[模块 02] 全球宏观对比与中国省级底座 - 复合清洗沙盒</h2>
         <a href="dashboard.html" class="back-btn">⬅ 返回全景中控台</a>
     </div>
 
     <div class="container">
         
         <div class="panel left-panel">
-            <h3 class="panel-title">💡 特征工程流</h3>
+            <h3 class="panel-title">💡 “双轨并进”清洗引擎</h3>
             
             <div class="insight-item">
-                <span>01 / 空间维度脱水</span>
-                <p>自研正则算子，去除"维吾尔自治区"、"市"等冗余后缀，实现多源异构数据的标准主键对齐。</p>
+                <span>01 / 全球疾病数据批提取</span>
+                <p>调用 <code>glob</code> 遍历目标文件夹，一键自动化提取合并 24 个 CSV 分年数据，构建核心慢病时序库。</p>
             </div>
             <div class="insight-item">
-                <span>02 / 异构表关联</span>
-                <p>基于 <code>[年份, 地区]</code> 联合主键，采用 Pandas Outer Join 机制，无损融合宏观经济与微观病理库。</p>
+                <span>02 / 版权脏数据剥离</span>
+                <p>针对原始表尾 IHME 英文版权及注释干扰行，执行 <code>dropna</code> 强制阻断，锁定 720 行高纯净度面板。</p>
             </div>
             <div class="insight-item">
-                <span>03 / 时序空洞补全</span>
-                <p>针对低频普查数据产生的“时间空洞”，采用 FFILL (向后结转) 算法保证时序面板的平滑性。</p>
+                <span>03 / 国际标杆对标 (Benchmarking)</span>
+                <p>基于 <code>Country Code</code> 精准提取 CHN、USA、IND 三国 WDI 截面，获取 1960-2024 年的长周期宏观锚点。</p>
             </div>
             <div class="insight-item">
-                <span>04 / 验证与阻断</span>
-                <p>全盘扫描缺失值，最终实现核心样本期内缺失率 0.00%，符合高规格建模要求。</p>
+                <span>04 / 数据终极体检</span>
+                <p>全盘扫描各列缺失值 `isnull().sum()`，验证时序跨度与结构完备性，确保模型入参数据 100% 绝对纯净。</p>
             </div>
         </div>
 
@@ -197,67 +80,48 @@
             <h3 class="panel-title">🛠️ 算法执行交互舱</h3>
             
             <div class="tab-nav">
-                <button class="tab-btn active" onclick="switchTab(1)" id="btn-1">1. Regex脱水</button>
-                <button class="tab-btn" onclick="switchTab(2)" id="btn-2">2. 主键联表</button>
-                <button class="tab-btn" onclick="switchTab(3)" id="btn-3">3. FFILL结转</button>
-                <button class="tab-btn" onclick="switchTab(4)" id="btn-4">4. 质量验证</button>
+                <button class="tab-btn active" onclick="switchTab(1)" id="btn-1">1. Glob批量合并</button>
+                <button class="tab-btn" onclick="switchTab(2)" id="btn-2">2. 版权阻断清洗</button>
+                <button class="tab-btn" onclick="switchTab(3)" id="btn-3">3. 国际标杆提取</button>
+                <button class="tab-btn" onclick="switchTab(4)" id="btn-4">4. 最终体检</button>
             </div>
 
             <div id="sandbox-1" class="sandbox-content" style="display: block;">
-                <p style="color:#aaa;">请输入包含冗余后缀的原始地名进行清洗测试：</p>
-                <input type="text" id="regex-input" class="input-box" value="新疆维吾尔自治区">
-                <button class="run-btn" onclick="runRegex()" style="margin-left: 10px;">执行清洗</button>
-                <div style="margin-top: 30px; padding: 15px; background: rgba(0,0,0,0.4); border-radius: 6px;">
-                    <span style="color:gray;">标准主键输出：</span>
-                    <strong id="regex-output" style="color:#e28a2b; font-size: 1.5em; margin-left: 10px;">-</strong>
-                </div>
+                <p style="color:#aaa;">检测到 [全球各国核心疾病与死亡估算数据] 文件夹下有 <strong>24</strong> 个分年数据包：</p>
+                <button class="run-btn" onclick="runGlob()">执行 pd.concat(all_files)</button>
+                <div id="glob-output" style="margin-top:15px; color:#39FF14; font-family:monospace; font-size:0.95em;"></div>
             </div>
 
             <div id="sandbox-2" class="sandbox-content" style="display: none;">
-                <p style="color:#aaa;">模拟多源数据库基于多重主键的 Outer Join 关联：</p>
-                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                    <div style="flex:1; border: 1px dashed rgba(79,195,247,0.4); padding: 10px; background: rgba(79,195,247,0.05); color:#ccc;">表A [WDI]:<br>(2020, 北京, GDP)</div>
-                    <div style="flex:1; border: 1px dashed rgba(226,138,43,0.4); padding: 10px; background: rgba(226,138,43,0.05); color:#ccc;">表B [GBD]:<br>(2020, 北京, 患病)</div>
+                <p style="color:#aaa;">剥离 IHME 表尾脏数据 (IHME Copyright Disclaimer...)：</p>
+                <div style="background:rgba(255,49,49,0.1); padding:10px; border:1px dashed #FF3131; font-size:0.8em; color:#FF3131;">
+                    [Row 末尾]: "Note: Data for 2023 is preliminary..." <br>
+                    [Row 末尾]: "Copyright (c) 2024 IHME..."
                 </div>
-                <button class="run-btn" onclick="runMerge()">执行 PD.MERGE</button>
-                <div style="margin-top: 20px;">
-                    <strong id="merge-output" style="color:#4fc3f7; font-size: 1.1em;"></strong>
-                </div>
+                <button class="run-btn" onclick="runClean()" style="margin-top:10px;">执行 df.dropna()</button>
+                <p id="clean-output" style="color:#39FF14; margin-top:10px; font-weight:bold;"></p>
             </div>
 
             <div id="sandbox-3" class="sandbox-content" style="display: none;">
-                <p style="color:#aaa;">模拟低频数据时间空洞的自动平滑填补：</p>
-                <div style="background: rgba(0,0,0,0.5); padding: 15px; font-family: monospace; color: #ccc; margin-bottom: 20px;">
-                    原始序列: [2018: <span style="color:#fff">50</span>] -> [2019: <span class="log-error">NaN</span>] -> [2020: <span class="log-error">NaN</span>]
-                </div>
-                <button class="run-btn" onclick="runFfill()">执行 FFILL 平滑</button>
-                <div style="margin-top: 20px;">
-                    <strong id="ffill-output" style="color:#39FF14; font-size: 1.2em; font-family: monospace;"></strong>
-                </div>
+                <p style="color:#aaa;">提取跨国标杆：[CHN, USA, IND]</p>
+                <button class="run-btn" onclick="runBench()">执行 isin(target_countries)</button>
+                <div id="bench-output" style="margin-top:15px; font-family:monospace; color:#4fc3f7; line-height: 1.6;"></div>
             </div>
 
             <div id="sandbox-4" class="sandbox-content" style="display: none;">
-                <p style="color:#aaa;">对合并后的百万级单元格进行异常及缺失值终检：</p>
-                <button class="run-btn" onclick="runValidation()">一键执行全库扫描</button>
-                
-                <div style="margin-top: 25px; width: 100%; height: 8px; background: rgba(0,0,0,0.5); border-radius: 4px; overflow: hidden;">
-                    <div id="progress-bar" style="height: 100%; width: 0%; background: #4fc3f7; transition: width 1.5s ease;"></div>
-                </div>
-                <div style="margin-top: 15px;">
-                    <strong id="val-output" style="color:#4fc3f7; font-size: 1.1em;"></strong>
-                </div>
+                <p style="color:#aaa;">核心面板 [年份/GDP/预期寿命/死亡原因] 终检报告：</p>
+                <button class="run-btn" onclick="runCheck()">一键运行体检脚本</button>
+                <div id="check-output" style="margin-top:15px; background:rgba(0,0,0,0.3); padding:10px; border-radius:4px; font-size:0.9em; line-height: 1.6;"></div>
             </div>
-
         </div>
 
         <div class="panel right-panel">
-            <h3 class="panel-title">🖥️ System Terminal Log</h3>
+            <h3 class="panel-title">🖥️ Multi-Source Data Terminal</h3>
             <div class="terminal-box" id="terminal-box">
-                <div class="terminal-header">root@health-data-center:~# tail -f /var/log/pipeline.log</div>
-                <span class="log-line">> Initializing DataEngine v3.1...</span>
-                <span class="log-line">> Loading WDI_Panel.csv (Shape: 1890, 15)</span>
-                <span class="log-line">> Loading GBD_Disease.csv (Shape: 12500, 8)</span>
-                <span class="log-line" style="color:#aaa">> Awaiting execution commands...</span>
+                <div style="color: #555; border-bottom: 1px dashed #333; margin-bottom: 5px;">root@health-data-engine:~# python preprocessing.py</div>
+                <span class="log-line">> Importing glob, pandas, os...</span>
+                <span class="log-line">> Scanning [./raw/全球各国核心疾病与死亡估算数据/]...</span>
+                <span class="log-line" style="color:#aaa">> Detected 24 CSV files. Standby for batch processing.</span>
             </div>
         </div>
 
@@ -267,7 +131,7 @@
         function addLog(text, type='normal') {
             const box = document.getElementById('terminal-box');
             const span = document.createElement('span');
-            span.className = 'log-line ' + (type === 'error' ? 'log-error' : type === 'warn' ? 'log-warn' : '');
+            span.className = 'log-line ' + (type === 'warn' ? 'log-warn' : '');
             span.innerText = "> " + text;
             box.appendChild(span);
             box.scrollTop = box.scrollHeight;
@@ -280,39 +144,29 @@
             }
             document.getElementById('sandbox-'+id).style.display = 'block';
             document.getElementById('btn-'+id).classList.add('active');
-            addLog(`Switched context to Module [0${id}]`, 'warn');
+            addLog(`Switched Context: Module_0${id}_Preprocessing`, 'warn');
         }
 
-        function runRegex() {
-            let input = document.getElementById('regex-input').value;
-            let output = input.replace(/(维吾尔|壮族|回族)?(自治区|省|市)$/, '');
-            document.getElementById('regex-output').innerText = output;
-            addLog(`Regex Executed: '${input}' -> '${output}'`);
+        function runGlob() {
+            document.getElementById('glob-output').innerHTML = "Status: CONCAT SUCCESS.<br>Total Rows: <strong>720</strong> records merged.";
+            addLog("Batch extraction complete. Combined 24 files via glob.glob().");
         }
 
-        function runMerge() {
-            document.getElementById('merge-output').innerText = "✓ 宽表构建完成: [2020, 北京, GDP: x, 患病: y]";
-            addLog("Executing pd.merge(df_wdi, df_gbd, on=['Year', 'Region'], how='outer')");
-            addLog("Merged successfully. New Shape: (15600, 22)");
+        function runClean() {
+            document.getElementById('clean-output').innerText = "✓ 成功执行 dropna()，彻底规避版权声明等脏数据。";
+            addLog("Executing dropna() to strip IHME copyright footers.");
+            addLog("Null records purged successfully.");
         }
 
-        function runFfill() {
-            document.getElementById('ffill-output').innerHTML = "结转后: [2018: <span style='color:#fff'>50</span>] -> [2019: 50] -> [2020: 50]";
-            addLog("Executing df.ffill().bfill() on temporal gaps");
-            addLog("Imputed 3,412 NaN values using Forward-Fill algorithm.");
+        function runBench() {
+            document.getElementById('bench-output').innerHTML = "Target Scope Locked:<br>✓ CHN (China)<br>✓ USA (United States)<br>✓ IND (India)";
+            addLog("Extracted benchmarking subset. GDP/Expectancy indicators aligned.");
         }
 
-        function runValidation() {
-            document.getElementById('val-output').innerText = "Scanning cells...";
-            document.getElementById('progress-bar').style.width = '0%';
-            addLog("Initiating full database cell scan...", 'warn');
-            
-            setTimeout(() => { document.getElementById('progress-bar').style.width = '100%'; }, 100);
-            setTimeout(() => { 
-                document.getElementById('val-output').innerHTML = "<span style='color:#39FF14;'>✓ 验证通过：核心样本期缺失率 0.00%</span>"; 
-                addLog("Scan Complete. Missing values detected: 0", 'normal');
-                addLog("Status: Production Ready.", 'normal');
-            }, 1500);
+        function runCheck() {
+            document.getElementById('check-output').innerHTML = "<span style='color:#39FF14;'>[PASS] WDI 时间跨度: 1960 年 到 2024 年</span><br><span style='color:#39FF14;'>[PASS] 疾病数据跨度: 2000 年 到 2023 年 (共 24 个年份)</span><br><span style='color:#39FF14;'>[PASS] 核心字段缺失值统计: 0</span><br><span style='color:#4fc3f7; display:inline-block; margin-top:5px;'>[INFO] Global_Disease_filtered_AllYears.csv Exported.</span>";
+            addLog("Full diagnostics complete. Missing cells: 0.");
+            addLog("Data pipeline status: PRODUCTION READY.", 'warn');
         }
     </script>
 </body>
