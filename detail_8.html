@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>深度解析舱：宏观结论与靶向施策</title>
+    <style>
+        /* 全局暗黑科技风设定 */
+        body {
+            margin: 0; padding: 0; background-color: #0b0f19;
+            background-image: radial-gradient(circle at 50% 50%, #1a233a 0%, #0b0f19 80%);
+            color: #E0E0E0; font-family: 'Microsoft YaHei', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column;
+        }
+
+        /* 顶部导航栏 - 科技蓝风格 */
+        .header { height: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; background: rgba(11, 28, 87, 0.4); border-bottom: 1px solid rgba(79, 195, 247, 0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .header h2 { margin: 0; font-size: 1.2em; color: #4fc3f7; letter-spacing: 2px; text-shadow: 0 0 10px rgba(79, 195, 247, 0.5); }
+        .back-btn { color: #fff; text-decoration: none; border: 1px solid #4fc3f7; padding: 6px 20px; border-radius: 20px; background: rgba(79, 195, 247, 0.1); transition: all 0.3s; font-size: 0.9em; }
+        .back-btn:hover { background: #4fc3f7; color: #0b0f19; box-shadow: 0 0 15px rgba(79, 195, 247, 0.8); }
+
+        /* 布局 */
+        .container { display: flex; flex: 1; padding: 20px; gap: 20px; box-sizing: border-box; height: calc(100vh - 60px); }
+
+        /* 面板统一风格 */
+        .panel { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(79, 195, 247, 0.2); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: inset 0 0 20px rgba(79, 195, 247, 0.05); position: relative; }
+        .panel::before { content: ''; position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid #4fc3f7; border-left: 2px solid #4fc3f7; }
+        .panel-title { color: #fff; font-size: 1.1em; margin-top: 0; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed rgba(79, 195, 247, 0.3); display: flex; align-items: center; }
+        .panel-title i { margin-right: 10px; color: #4fc3f7; }
+
+        /* 左侧：宏观结论区 */
+        .left-panel { flex: 0 0 45%; overflow-y: auto; }
+        .conclusion-card { background: rgba(79, 195, 247, 0.05); border: 1px solid rgba(79, 195, 247, 0.1); border-radius: 8px; padding: 15px; margin-bottom: 15px; transition: transform 0.3s; }
+        .conclusion-card:hover { transform: translateX(10px); background: rgba(79, 195, 247, 0.1); }
+        .conclusion-card h4 { margin: 0 0 10px 0; color: #00E5FF; font-size: 1em; display: flex; align-items: center; }
+        .conclusion-card h4::before { content: '●'; margin-right: 8px; font-size: 0.8em; }
+        .conclusion-card p { margin: 0; font-size: 0.85em; line-height: 1.6; color: #b0c4de; }
+
+        /* 右侧：靶向施策区 */
+        .right-panel { flex: 1; overflow-y: auto; }
+        .policy-group { margin-bottom: 25px; }
+        .policy-tag { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.8em; font-weight: bold; margin-bottom: 10px; }
+        
+        /* 针对不同阵营的标签颜色 */
+        .tag-leading { background: rgba(0, 229, 255, 0.2); color: #00E5FF; border: 1px solid #00E5FF; }
+        .tag-warning { background: rgba(255, 0, 85, 0.2); color: #FF0055; border: 1px solid #FF0055; }
+        .tag-balance { background: rgba(255, 215, 0, 0.2); color: #FFD700; border: 1px solid #FFD700; }
+
+        .policy-item { background: rgba(255,255,255,0.02); border-left: 3px solid #4fc3f7; padding: 12px; margin-bottom: 10px; border-radius: 0 8px 8px 0; }
+        .policy-item strong { display: block; color: #fff; font-size: 0.9em; margin-bottom: 5px; }
+        .policy-item span { font-size: 0.8em; color: #8899aa; }
+
+        /* 总结寄语 */
+        .summary-footer { margin-top: auto; padding: 15px; background: linear-gradient(90deg, rgba(79, 195, 247, 0.1), transparent); border-radius: 8px; border-left: 4px solid #4fc3f7; }
+        .summary-footer p { margin: 0; font-style: italic; font-size: 0.85em; color: #4fc3f7; }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: rgba(79, 195, 247, 0.2); border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>[模块 08] 宏观结论与靶向施策 (决策支持)</h2>
+        <a href="dashboard.html" class="back-btn">⬅ 返回全景中控台</a>
+    </div>
+
+    <div class="container">
+        
+        <div class="panel left-panel">
+            <h3 class="panel-title">📝 核心研究结论提炼</h3>
+            
+            <div class="conclusion-card">
+                <h4>资源扩张与效能释放存在“非同步性”</h4>
+                <p>近二十年我国医疗资源实现了量级的跨越（床位数增长近3倍），但 DEA 效率演变显示，资源投入的增加并不必然带来效能的线性提升，部分地区陷入了“高投入、低转化”的规模陷阱。</p>
+            </div>
+
+            <div class="conclusion-card">
+                <h4>空间分布呈现明显的“阶梯式”集聚</h4>
+                <p>资源重心长期锁定于京津冀、长三角及珠三角集群。尽管西部大开发战略有所缓解，但东中西部的配置梯度依然陡峭，优质资源的空间极化现象依然显著。</p>
+            </div>
+
+            <div class="conclusion-card">
+                <h4>效率洼地存在“隐性沉没”风险</h4>
+                <p>预警监测发现，广东、江苏等经济发达省份虽得分较高，但在边际产出上已出现递减趋势。这种“隐性低效”如果不加干预，将导致后续海量财政投入的无谓流失。</p>
+            </div>
+
+            <div class="conclusion-card">
+                <h4>人口结构与资源配置的“错位”挑战</h4>
+                <p>随着预期寿命的显著提升（2022年多省破80岁），现有以“床位”为核心的基建扩张模式已无法完全满足日益增长的慢病与高龄康复需求，结构性结构亟待转型。</p>
+            </div>
+        </div>
+
+        <div class="panel right-panel">
+            <h3 class="panel-title">🎯 数字化靶向施策方案</h3>
+            
+            <div class="policy-group">
+                <div class="policy-tag tag-leading">高效率领先区 (Leading)</div>
+                <div class="policy-item">
+                    <strong>输出型辐射战略</strong>
+                    <span>发挥北京、上海、浙江的辐射作用，通过“云端医院”与异地协作，向周边效率较低地区输出管理经验与技术标准。</span>
+                </div>
+            </div>
+
+            <div class="policy-group">
+                <div class="policy-tag tag-warning">中高投入低转化区 (Alert)</div>
+                <div class="policy-item" style="border-left-color: #FF0055;">
+                    <strong>内涵式存量优化</strong>
+                    <span>针对广东、江苏等省份，停止盲目增设大型医院，转而强化内部流程再造，通过数字化手段提升现有床位与人员的周转效率。</span>
+                </div>
+                <div class="policy-item" style="border-left-color: #FF0055;">
+                    <strong>精准基建投放</strong>
+                    <span>针对西藏、宁夏等绝对低效区，加大对基层医疗网点的柔性投入，重点解决“最后一公里”的可达性问题，而非堆砌超大型硬件。</span>
+                </div>
+            </div>
+
+            <div class="policy-group">
+                <div class="policy-tag tag-balance">中等效率平衡区 (Balanced)</div>
+                <div class="policy-item" style="border-left-color: #FFD700;">
+                    <strong>结构化动能转型</strong>
+                    <span>引导中部地区省份从“硬投入”转向“软投入”，加大对公共卫生、预防医学以及医护人才梯队的财政倾斜力度。</span>
+                </div>
+            </div>
+
+            <div class="summary-footer">
+                <p>“医疗资源配置不仅是物理空间的摆放，更是效能产出的艺术。本系统旨在为‘健康中国2030’提供精细化的决策坐标。”</p>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
