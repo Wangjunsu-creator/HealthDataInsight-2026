@@ -9,36 +9,70 @@
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* 增加全局样式，确保图片和地图在框内居中并自适应 */
-        .chart { display: flex; justify-content: center; align-items: center; overflow: hidden; height: 100%; flex-direction: column; }
-        .chart img { max-width: 95%; max-height: 95%; object-fit: contain; }
-        iframe { width: 100%; height: 100%; border: none; outline: none; }
+        /* 🌟 核心修复1：强制锁定所有面板，绝对禁止溢出 */
+        .panel {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; 
+            box-sizing: border-box;
+        }
+        .title {
+            flex-shrink: 0; /* 保护标题不被挤压 */
+            z-index: 10;
+        }
+        /* 🌟 核心修复2：图表容器自适应剩余空间 */
+        .chart {
+            flex: 1; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* 裁剪所有越界内容 */
+            padding: 5px !important; /* 缩小内边距留出空间 */
+            box-sizing: border-box;
+        }
+        .chart img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+        }
+        /* 🌟 核心修复3：强行把地图 iframe 锁死在框内 */
+        iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+        }
 
         /* 大屏内部的下钻小按钮 */
-        .drill-btn { float: right; font-size: 12px; color: #4fc3f7; text-decoration: none; border: 1px solid rgba(79, 195, 247, 0.5); padding: 2px 8px; border-radius: 4px; background: rgba(11, 28, 87, 0.5); transition: all 0.3s; margin-top: 2px; margin-right: 10px; }
+        .drill-btn { float: right; font-size: 12px; color: #4fc3f7; text-decoration: none; border: 1px solid rgba(79, 195, 247, 0.5); padding: 1px 6px; border-radius: 4px; background: rgba(11, 28, 87, 0.5); transition: all 0.3s; margin-top: 2px; margin-right: 5px; }
         .drill-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 10px #4fc3f7; }
 
         /* 右上角返回主页按钮 */
         .home-btn { position: absolute; right: 20px; top: 15px; color: #4fc3f7; text-decoration: none; font-size: 14px; border: 1px solid #4fc3f7; padding: 4px 15px; border-radius: 20px; transition: 0.3s; z-index: 999;}
         .home-btn:hover { background: #4fc3f7; color: #0b1c57; box-shadow: 0 0 15px rgba(79, 195, 247, 0.6); }
 
-        /* 专属组件：数据基建看板 */
-        .data-stat-box { display: flex; flex-wrap: wrap; width: 90%; gap: 10px; justify-content: space-between;}
-        .data-stat-item { background: rgba(79, 195, 247, 0.1); border: 1px solid rgba(79, 195, 247, 0.3); border-radius: 6px; padding: 10px; text-align: center; width: 45%; }
-        .data-stat-item h3 { color: #4fc3f7; margin: 5px 0; font-size: 1.5em; font-family: monospace;}
-        .data-stat-item p { color: #ccc; font-size: 0.75em; margin: 0; }
+        /* 🌟 修复模块2：按比例缩小数据看板 */
+        .data-stat-box { display: flex; flex-wrap: wrap; width: 100%; height: 100%; gap: 5px; justify-content: space-around; align-items: center; padding: 5px; box-sizing: border-box;}
+        .data-stat-item { background: rgba(79, 195, 247, 0.1); border: 1px solid rgba(79, 195, 247, 0.3); border-radius: 4px; padding: 2px; text-align: center; width: 45%; height: 42%; display: flex; flex-direction: column; justify-content: center; }
+        .data-stat-item h3 { color: #4fc3f7; margin: 0; font-size: 1.1em; font-family: monospace;}
+        .data-stat-item p { color: #ccc; font-size: 0.65em; margin: 0; }
 
-        /* 专属组件：DEA 效能排行榜单 */
-        .dea-table { width: 90%; border-collapse: collapse; font-size: 0.85em; color: #E0E0E0; text-align: center; }
-        .dea-table th { border-bottom: 1px solid #4fc3f7; color: #4fc3f7; padding: 6px; }
-        .dea-table td { padding: 6px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
+        /* 🌟 修复模块5：按比例缩小 DEA 排行榜单 */
+        .dea-table { width: 98%; border-collapse: collapse; font-size: 0.7em; color: #E0E0E0; text-align: center; margin-top: 0; }
+        .dea-table th { border-bottom: 1px solid #4fc3f7; color: #4fc3f7; padding: 4px; }
+        .dea-table td { padding: 4px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
         .rank-top { color: #39FF14; font-weight: bold; }
         .rank-bottom { color: #FF3131; font-weight: bold; }
 
-        /* 专属组件：战略看板 */
-        .policy-card { background: rgba(226, 138, 43, 0.1); border-left: 4px solid #e28a2b; padding: 10px; margin-bottom: 8px; width: 90%; text-align: left; }
-        .policy-card h4 { color: #e28a2b; margin: 0 0 5px 0; font-size: 1em; }
-        .policy-card p { color: #ddd; font-size: 0.75em; margin: 0; }
+        /* 🌟 修复模块8：缩小战略看板避免溢出 */
+        .policy-card { background: rgba(226, 138, 43, 0.1); border-left: 3px solid #e28a2b; padding: 6px; margin-bottom: 5px; width: 95%; text-align: left; box-sizing: border-box;}
+        .policy-card h4 { color: #e28a2b; margin: 0 0 3px 0; font-size: 0.85em; }
+        .policy-card p { color: #ddd; font-size: 0.65em; margin: 0; line-height: 1.2; }
     </style>
 </head>
 <body class="fill-parent"
@@ -78,7 +112,7 @@
                     <div class="data-stat-item"><h3>25</h3><p>年度时间跨度</p></div>
                     <div class="data-stat-item"><h3 style="color:#39FF14;">0.00%</h3><p>黄金期缺失率</p></div>
                 </div>
-                <p style="color:gray; font-size: 0.75em; margin-top: 15px;">核心算法: Regex正则脱水 / FFILL向后结转</p>
+                <p style="color:gray; font-size: 0.65em; margin-top: 5px; margin-bottom: 0;">核心算法: Regex正则脱水 / FFILL结转</p>
             </div>
 			<div class="border-foot"></div>
 		</div>
@@ -101,7 +135,7 @@
                 <label>4. 资源配置时空演变沙盘 (2005-2024)</label>
                 <a href="detail_4.html" class="drill-btn">⚡ 深度解析</a>
             </div>
-			<div class="chart" style="padding: 0;">
+			<div class="chart" style="padding: 0 !important;">
                 <iframe src="Chart3_Dynamic_Resource_Map.html" scrolling="no"></iframe>
             </div>
 			<div class="border-foot"></div>
@@ -114,16 +148,16 @@
                 <label>5. DEA-BCC 综合效能评估基线</label>
                 <a href="detail_5.html" class="drill-btn">⚡ 深度解析</a>
             </div>
-			<div class="chart" style="justify-content: flex-start; padding-top: 15px;">
+			<div class="chart">
                 <table class="dea-table">
-                    <tr><th>排名</th><th>省份</th><th>综合技术效率(TE)</th><th>规模效率(SE)</th></tr>
-                    <tr><td class="rank-top">TOP 1</td><td>北京市</td><td>1.000 (DEA有效)</td><td>1.000</td></tr>
-                    <tr><td class="rank-top">TOP 2</td><td>上海市</td><td>1.000 (DEA有效)</td><td>1.000</td></tr>
-                    <tr><td class="rank-top">TOP 3</td><td>浙江省</td><td>0.985 (高优转化)</td><td>0.992</td></tr>
+                    <tr><th>排名</th><th>省份</th><th>综合技术效率</th><th>规模效率</th></tr>
+                    <tr><td class="rank-top">TOP 1</td><td>北京市</td><td>1.000 (有效)</td><td>1.000</td></tr>
+                    <tr><td class="rank-top">TOP 2</td><td>上海市</td><td>1.000 (有效)</td><td>1.000</td></tr>
+                    <tr><td class="rank-top">TOP 3</td><td>浙江省</td><td>0.985 (高优)</td><td>0.992</td></tr>
                     <tr><td colspan="4" style="color:#555;">... 省略中间梯队 ...</td></tr>
-                    <tr><td class="rank-bottom">BTM 3</td><td>青海省</td><td>0.684 (配置冗余)</td><td>0.712</td></tr>
-                    <tr><td class="rank-bottom">BTM 2</td><td>甘肃省</td><td>0.652 (配置冗余)</td><td>0.690</td></tr>
-                    <tr><td class="rank-bottom">BTM 1</td><td>西藏自治区</td><td>0.543 (极度洼地)</td><td>0.588</td></tr>
+                    <tr><td class="rank-bottom">BTM 3</td><td>青海省</td><td>0.684 (冗余)</td><td>0.712</td></tr>
+                    <tr><td class="rank-bottom">BTM 2</td><td>甘肃省</td><td>0.652 (冗余)</td><td>0.690</td></tr>
+                    <tr><td class="rank-bottom">BTM 1</td><td>西藏区</td><td>0.543 (极地)</td><td>0.588</td></tr>
                 </table>
             </div>
 			<div class="border-foot"></div>
@@ -158,14 +192,14 @@
                 <label>8. 宏观结论与靶向施策</label>
                 <a href="detail_8.html" class="drill-btn">⚡ 深度解析</a>
             </div>
-			<div class="chart" style="padding-top: 10px;">
+			<div class="chart">
                 <div class="policy-card">
                     <h4>🎯 靶向治理：打破纯技术低效</h4>
-                    <p>多数省份规模效率已近极值(均值>0.9)，必须从“扩规模”转向“调结构”，遏制盲目扩张。</p>
+                    <p>多数省份规模效率已近极值(>0.9)，必须从“扩规模”转向“调结构”。</p>
                 </div>
-                <div class="policy-card" style="border-left-color: #39FF14;">
+                <div class="policy-card" style="border-left-color: #39FF14; margin-bottom: 0;">
                     <h4 style="color: #39FF14;">🤝 跨域协同：高能级溢出</h4>
-                    <p>建议以“高优区”为核心建立跨省专科医联体，向“低效洼地”进行技术与管理双重赋能。</p>
+                    <p>建议以高优区为核心建立专科医联体，向洼地进行技术管理双重赋能。</p>
                 </div>
             </div>
 			<div class="border-foot"></div>
