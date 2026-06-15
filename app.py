@@ -12,8 +12,8 @@ page_url = "https://Wangjunsu-creator.github.io/HealthDataInsight-2026/"
 # 调高高度适配多层嵌套网页，滚动开启
 components.iframe(
     src=page_url,
-    width=1000,
-    height=1200,
+    width="100%",
+    height=1600,
     scrolling=True
 )
 
