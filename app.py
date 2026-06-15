@@ -13,7 +13,7 @@ page_url = "https://Wangjunsu-creator.github.io/HealthDataInsight-2026/"
 components.iframe(
     src=page_url,
     width="100%",
-    height=1000,
+    height=800,
     scrolling=True
 )
 
